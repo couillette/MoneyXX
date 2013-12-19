@@ -13,7 +13,7 @@ public class SendBegActivity extends Activity {
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		setContentView(R.layout.activity_seng_beg);
+		setContentView(R.layout.activity_send_beg);
 		
 		//Enable the callBack button
 		getActionBar().setDisplayHomeAsUpEnabled(true);
@@ -23,7 +23,7 @@ public class SendBegActivity extends Activity {
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
 		// Inflate the menu; this adds items to the action bar if it is present.
-		getMenuInflater().inflate(R.menu.seng_beg, menu);
+		getMenuInflater().inflate(R.menu.send_beg, menu);
 		return true;
 	}
 	

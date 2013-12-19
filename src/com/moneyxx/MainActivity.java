@@ -38,21 +38,25 @@ public class MainActivity extends Activity {
 		case R.id.button_Beg:
 			myIntent = new Intent(MainActivity.this, SendBegActivity.class);
 			MainActivity.this.startActivity(myIntent);
-			
+		break;
+		
 		//if user click on "Beg Money"
 		case R.id.button_Jackpot:
 			myIntent = new Intent(MainActivity.this, JackpotActivity.class);
 			MainActivity.this.startActivity(myIntent);
-			
+		break;
+		
 		//if user click on "Wallet"
 		case R.id.button_Wallet:
 			myIntent = new Intent(MainActivity.this, WalletActivity.class);
 			MainActivity.this.startActivity(myIntent);
-			
+		break;
+		
 		//if user click on "My Account"
 		case R.id.button_MyAccount:
 			myIntent = new Intent(MainActivity.this, MyAccountActivity.class);
 			MainActivity.this.startActivity(myIntent);
+		break;
 
 		}
 	}

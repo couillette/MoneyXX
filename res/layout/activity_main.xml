@@ -18,34 +18,50 @@
         android:layout_alignParentRight="true"
         android:layout_alignParentTop="true"
         android:text="Dispay the account basic settings (name, solde, dates)" />
-    
+
+    <ImageButton
+        android:id="@+id/imageButton_send"
+        android:layout_width="70sp"
+        android:layout_height="50sp"
+        android:layout_alignParentLeft="true"
+        android:layout_alignTop="@+id/button_Send"
+        android:layout_toLeftOf="@+id/button_Send"
+        android:background="@drawable/ic_money_send" />
+
+    <Button
+        android:id="@+id/button_MyAccount"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/button_Wallet"
+        android:layout_below="@+id/button_Wallet"
+        android:layout_marginTop="38dp"
+        android:text="@string/button_MyAccount" />
+
     <Button
         android:id="@+id/button_Send"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentLeft="true"
         android:layout_below="@+id/textView1"
-        android:layout_marginTop="32dp"
+        android:layout_marginTop="18dp"
+        android:layout_toRightOf="@+id/button_Jackpot"
         android:onClick="onClick"
         android:text="@string/button_Send" />
 
-    <Button
-        android:id="@+id/button_Beg"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentLeft="true"
-        android:layout_below="@+id/button_Send"
-        android:layout_marginTop="28dp"
-        android:onClick="onClick"
-        android:text="@string/button_Beg" />
+    <ImageButton
+        android:id="@+id/imageButton_beg"
+        android:layout_width="50sp"
+        android:layout_height="50sp"
+        android:layout_alignBottom="@+id/button_Beg"
+        android:layout_alignLeft="@+id/textView1"
+        android:layout_marginLeft="19dp"
+        android:background="@drawable/ic_money_beg" />
 
     <Button
         android:id="@+id/button_Jackpot"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentLeft="true"
-        android:layout_below="@+id/button_Beg"
-        android:layout_marginTop="26dp"
+        android:layout_alignLeft="@+id/textView1"
+        android:layout_centerVertical="true"
         android:onClick="onClick"
         android:text="@string/button_Jackpot" />
 
@@ -53,18 +69,19 @@
         android:id="@+id/button_Wallet"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentLeft="true"
+        android:layout_alignLeft="@+id/button_Jackpot"
         android:layout_below="@+id/button_Jackpot"
-        android:layout_marginTop="25dp"
+        android:layout_marginTop="36dp"
         android:text="@string/button_Wallet" />
 
     <Button
-        android:id="@+id/button_MyAccount"
+        android:id="@+id/button_Beg"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentLeft="true"
-        android:layout_below="@+id/button_Wallet"
-        android:layout_marginTop="18dp"
-        android:text="@string/button_MyAccount" />
+        android:layout_above="@+id/button_Jackpot"
+        android:layout_alignLeft="@+id/button_Send"
+        android:layout_marginBottom="20dp"
+        android:onClick="onClick"
+        android:text="@string/button_Beg" />
 
 </RelativeLayout>
