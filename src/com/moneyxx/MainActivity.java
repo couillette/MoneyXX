@@ -1,6 +1,7 @@
 package com.moneyxx;
 
 import com.moneyxx.R;
+import com.stackmob.android.sdk.common.StackMobAndroid;
 
 import android.os.Bundle;
 import android.app.Activity;
@@ -17,6 +18,7 @@ public class MainActivity extends Activity {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_main);
 		
+		StackMobAndroid.init(getApplicationContext(), 0, "2e24fee1-d4e5-4465-85cd-c7623de7cf71");
 	}
 	
 	
