@@ -7,14 +7,15 @@
 
     <color name="green">#318480</color>
 
-    <string name="button_Settings">settings</string>
     <string name="button_Wallet">Wallet</string>
     <string name="button_Jackpot">Jackpot</string>
     <string name="button_Send">Send Money</string>
     <string name="button_Beg">Beg Money</string>
+    <string name="button_MyAccount">My Account</string>
     <string name="title_activity_seng_beg">SengBegActivity</string>
     <string name="title_activity_jackpot">JackpotActivity</string>
     <string name="title_activity_wallet">WalletActivity</string>
     <string name="title_activity_jackpot_form">JackpotFormActivity</string>
+    <string name="title_activity_my_account">MyAccountActivity</string>
 
 </resources>

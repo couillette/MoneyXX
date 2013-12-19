@@ -59,12 +59,12 @@
         android:text="@string/button_Wallet" />
 
     <Button
-        android:id="@+id/button_Settings"
+        android:id="@+id/button_MyAccount"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
         android:layout_below="@+id/button_Wallet"
         android:layout_marginTop="18dp"
-        android:text="@string/button_Settings" />
+        android:text="@string/button_MyAccount" />
 
 </RelativeLayout>

@@ -15,6 +15,7 @@ public class SendBegActivity extends Activity {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_seng_beg);
 		
+		//Enable the callBack button
 		getActionBar().setDisplayHomeAsUpEnabled(true);
 		
 	}
@@ -26,6 +27,7 @@ public class SendBegActivity extends Activity {
 		return true;
 	}
 	
+	//Set the call back to return to previous activity
 	@Override
 	public boolean onOptionsItemSelected(MenuItem item){
 		switch (item.getItemId()) {

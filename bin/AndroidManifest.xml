@@ -6,22 +6,23 @@
 
     <uses-sdk
         android:minSdkVersion="11"
-        android:targetSdkVersion="18" />
+        android:targetSdkVersion="19" />
 
     <application
         android:allowBackup="true"
         android:icon="@drawable/ic_launcher"
         android:label="@string/app_name"
         android:theme="@style/AppTheme" >
+        
         <activity
             android:name="com.moneyxx.MainActivity"
             android:label="@string/app_name" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        
         <activity
             android:name="com.moneyxx.SendBegActivity"
             android:label="" >
@@ -29,18 +30,39 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.moneyxx.MainActivity" />
         </activity>
+        
         <activity
             android:name="com.moneyxx.JackpotActivity"
-            android:label="@string/title_activity_jackpot" >
+            android:label="" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.moneyxx.MainActivity" />
         </activity>
+        
         <activity
             android:name="com.moneyxx.WalletActivity"
-            android:label="@string/title_activity_wallet" >
+            android:label="" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.moneyxx.MainActivity" />
         </activity>
+        
         <activity
             android:name="com.moneyxx.JackpotFormActivity"
-            android:label="@string/title_activity_jackpot_form" >
+            android:label="" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.moneyxx.JackpotActivity" />
         </activity>
+        
+        <activity
+            android:name="com.moneyxx.MyAccountActivity"
+            android:label="" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.moneyxx.MainActivity" />
+        </activity>
+        
     </application>
 
 </manifest>
