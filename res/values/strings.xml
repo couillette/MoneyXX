@@ -2,6 +2,19 @@
 <resources>
 
     <string name="app_name">MoneyXX</string>
-    <string name="title_item_detail">Item Detail</string>
+    <string name="action_settings">Settings</string>
+    <string name="hello_world">Hello world!</string>
+
+    <color name="green">#318480</color>
+
+    <string name="button_Settings">settings</string>
+    <string name="button_Wallet">Wallet</string>
+    <string name="button_Jackpot">Jackpot</string>
+    <string name="button_Send">Send Money</string>
+    <string name="button_Beg">Beg Money</string>
+    <string name="title_activity_seng_beg">SengBegActivity</string>
+    <string name="title_activity_jackpot">JackpotActivity</string>
+    <string name="title_activity_wallet">WalletActivity</string>
+    <string name="title_activity_jackpot_form">JackpotFormActivity</string>
 
 </resources>

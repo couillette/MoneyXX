@@ -5,8 +5,8 @@
     android:versionName="1.0" >
 
     <uses-sdk
-        android:minSdkVersion="14"
-        android:targetSdkVersion="19" />
+        android:minSdkVersion="11"
+        android:targetSdkVersion="18" />
 
     <application
         android:allowBackup="true"
@@ -14,7 +14,7 @@
         android:label="@string/app_name"
         android:theme="@style/AppTheme" >
         <activity
-            android:name="com.moneyxx.ItemListActivity"
+            android:name="com.moneyxx.MainActivity"
             android:label="@string/app_name" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -23,12 +23,23 @@
             </intent-filter>
         </activity>
         <activity
-            android:name="com.moneyxx.ItemDetailActivity"
-            android:label="@string/title_item_detail"
-            android:parentActivityName=".ItemListActivity" >
+            android:name="com.moneyxx.SendBegActivity"
+            android:label="" >
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value=".ItemListActivity" />
+                android:value="com.moneyxx.MainActivity" />
+        </activity>
+        <activity
+            android:name="com.moneyxx.JackpotActivity"
+            android:label="@string/title_activity_jackpot" >
+        </activity>
+        <activity
+            android:name="com.moneyxx.WalletActivity"
+            android:label="@string/title_activity_wallet" >
+        </activity>
+        <activity
+            android:name="com.moneyxx.JackpotFormActivity"
+            android:label="@string/title_activity_jackpot_form" >
         </activity>
     </application>
 
