@@ -22,7 +22,7 @@ public class Sign_upActivity extends Activity {
 		setContentView(R.layout.activity_sign_up);
 		
 		//Store User settings on the application data
-		setSharedPreferences();
+//		setSharedPreferences();
 		
 		//connection to the Stackmob Backend services
 		StackMobAndroid.init(getApplicationContext(), 0, "2e24fee1-d4e5-4465-85cd-c7623de7cf71");
@@ -40,19 +40,19 @@ public class Sign_upActivity extends Activity {
 	 * 
 	 * !! launcher activity ---> edit the the manifest !!
 	 */
-	private void setSharedPreferences(){
-		SharedPreferences pref = getSharedPreferences("Sign_upPreferences", Context.MODE_PRIVATE);
-		if(pref.getBoolean("Sign_upActivated", false)){
-			Intent intent = new Intent(Sign_upActivity.this, MainActivity.class);
-			startActivity(intent);
-			finish();
-		}else {
-			Editor edit = pref.edit();
-			edit.putBoolean("Sign_upActivated", true);
-			// "edit.apply()" is asynch and "edit.commit()" is synchronous 
-			edit.apply();
-		}
-	}
+//	private void setSharedPreferences(){
+//		SharedPreferences pref = getSharedPreferences("Sign_upPreferences", Context.MODE_PRIVATE);
+//		if(pref.getBoolean("Sign_upActivated", false)){
+//			Intent intent = new Intent(Sign_upActivity.this, MainActivity.class);
+//			startActivity(intent);
+//			finish();
+//		}else {
+//			Editor edit = pref.edit();
+//			edit.putBoolean("Sign_upActivated", true);
+//			// "edit.apply()" is asynch and "edit.commit()" is synchronous 
+//			edit.apply();
+//		}
+//	}
 	
 	
 	public void onClick(View view){
