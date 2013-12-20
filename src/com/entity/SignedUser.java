@@ -3,55 +3,48 @@ package com.entity;
 import com.stackmob.sdk.model.StackMobUser;
 
 public class SignedUser extends StackMobUser{
-	
-	private int id;
-	private int id_Address;
-	private int id_Account;
+
 	private String username;
 	private int phone;
-	private String mail;
-	private int ip;
+	private String email;
+	private int creditCardTEST;
+//	private int ip;
+//	private int id_Address;
+//	private int id_Account;
 	
 	
-	public SignedUser(String username, String password){
+	public SignedUser(String username, String password, String email , int creditCardTEST){
 		super(SignedUser.class, username, password);
+		this.email = email;
+		this.creditCardTEST = creditCardTEST;
 	}
 	
 	
 	
 	
-	
 
-	public int getId() {
-		return id;
+//	public int getId_Address() {
+//		return id_Address;
+//	}
+//
+//	public void setId_Address(int id_Address) {
+//		this.id_Address = id_Address;
+//	}
+//
+//	public int getId_Account() {
+//		return id_Account;
+//	}
+//
+//	public void setId_Account(int id_Account) {
+//		this.id_Account = id_Account;
+//	}
+
+	public String getUsername() {
+		return username;
 	}
 
-	public void setId(int id) {
-		this.id = id;
-	}
-
-	public int getId_Address() {
-		return id_Address;
-	}
-
-	public void setId_Address(int id_Address) {
-		this.id_Address = id_Address;
-	}
-
-	public int getId_Account() {
-		return id_Account;
-	}
-
-	public void setId_Account(int id_Account) {
-		this.id_Account = id_Account;
-	}
-
-	public String getPseudo() {
-		return pseudo;
-	}
-
-	public void setPseudo(String pseudo) {
-		this.pseudo = pseudo;
+	public void setUsername(String pseudo) {
+		this.username = pseudo;
 	}
 
 	public int getPhone() {
@@ -63,20 +56,20 @@ public class SignedUser extends StackMobUser{
 	}
 
 	public String getMail() {
-		return mail;
+		return email;
 	}
 
-	public void setMail(String mail) {
-		this.mail = mail;
+	public void setMail(String email) {
+		this.email = email;
 	}
 
-	public int getIp() {
-		return ip;
-	}
-
-	public void setIp(int ip) {
-		this.ip = ip;
-	}
+//	public int getIp() {
+//		return ip;
+//	}
+//
+//	public void setIp(int ip) {
+//		this.ip = ip;
+//	}
 	
 
 }

@@ -7,7 +7,8 @@
     <uses-sdk
         android:minSdkVersion="11"
         android:targetSdkVersion="19" />
-    <uses-permission android:name="android.permission.INTERNET"/>
+
+    <uses-permission android:name="android.permission.INTERNET" />
 
     <application
         android:allowBackup="true"
@@ -16,14 +17,28 @@
         android:theme="@style/AppTheme" >
         
         <activity
-            android:name="com.moneyxx.MainActivity"
+            android:name="com.moneyxx.Sign_upActivity"
             android:label="@string/app_name" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
+
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
         
+        <activity
+            android:name="com.moneyxx.MainActivity"
+            android:label="@string/app_name" >
+        </activity>
+<!--         <activity -->
+<!--             android:name="com.moneyxx.MainActivity" -->
+<!--             android:label="@string/app_name" > -->
+<!--             <intent-filter> -->
+<!--                 <action android:name="android.intent.action.MAIN" /> -->
+
+<!--                 <category android:name="android.intent.category.LAUNCHER" /> -->
+<!--             </intent-filter> -->
+<!--         </activity> -->
         <activity
             android:name="com.moneyxx.SendBegActivity"
             android:label="" >
@@ -31,7 +46,6 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.moneyxx.MainActivity" />
         </activity>
-        
         <activity
             android:name="com.moneyxx.JackpotActivity"
             android:label="" >
@@ -39,7 +53,6 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.moneyxx.MainActivity" />
         </activity>
-        
         <activity
             android:name="com.moneyxx.WalletActivity"
             android:label="" >
@@ -47,7 +60,6 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.moneyxx.MainActivity" />
         </activity>
-        
         <activity
             android:name="com.moneyxx.JackpotFormActivity"
             android:label="" >
@@ -55,7 +67,6 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.moneyxx.JackpotActivity" />
         </activity>
-        
         <activity
             android:name="com.moneyxx.MyAccountActivity"
             android:label="" >
@@ -63,7 +74,7 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.moneyxx.MainActivity" />
         </activity>
-        
+
     </application>
 
 </manifest>

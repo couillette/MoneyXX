@@ -35,6 +35,7 @@
         android:layout_alignLeft="@+id/button_Wallet"
         android:layout_below="@+id/button_Wallet"
         android:layout_marginTop="38dp"
+        android:onClick="onClick"
         android:text="@string/button_MyAccount" />
 
     <Button
@@ -72,6 +73,7 @@
         android:layout_alignLeft="@+id/button_Jackpot"
         android:layout_below="@+id/button_Jackpot"
         android:layout_marginTop="36dp"
+        android:onClick="onClick"
         android:text="@string/button_Wallet" />
 
     <Button

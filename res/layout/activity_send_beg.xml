@@ -16,7 +16,7 @@
         android:layout_height="wrap_content"
         android:layout_alignParentTop="true"
         android:layout_marginLeft="20sp"
-        android:layout_toLeftOf="@+id/imageView1"
+        android:layout_toLeftOf="@+id/image_money_bill"
         android:background="@color/green"
         android:ems="1"
         android:gravity="center"

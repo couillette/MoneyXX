@@ -13,6 +13,7 @@ public final class R {
     public static final class color {
         public static final int blank=0x7f060001;
         public static final int green=0x7f060000;
+        public static final int pastelGreen=0x7f060002;
     }
     public static final class dimen {
         /**  Default screen margins, per the Android Design guidelines. 
@@ -32,25 +33,30 @@ public final class R {
         public static final int ic_money_send=0x7f020004;
     }
     public static final class id {
-        public static final int AutoComp_Receiver=0x7f09000f;
-        public static final int action_settings=0x7f090013;
-        public static final int buton_SendRequest=0x7f090011;
+        public static final int AutoComp_Receiver=0x7f09000e;
+        public static final int action_settings=0x7f090018;
+        public static final int buton_SendRequest=0x7f090010;
         public static final int button_Beg=0x7f090007;
-        public static final int button_BegRequest=0x7f090012;
+        public static final int button_BegRequest=0x7f090011;
         public static final int button_Jackpot=0x7f090005;
         public static final int button_MyAccount=0x7f090003;
         public static final int button_Send=0x7f090002;
+        public static final int button_SignUp=0x7f090017;
         public static final int button_Wallet=0x7f090004;
-        public static final int editText1=0x7f090010;
+        public static final int editText1=0x7f09000f;
         public static final int editText_AmountOfMoney=0x7f090008;
+        public static final int editText_CreditCard=0x7f090015;
+        public static final int editText_Email=0x7f090014;
+        public static final int editText_Password=0x7f090013;
+        public static final int editText_PostalAddress=0x7f090016;
+        public static final int editText_Username=0x7f090012;
         public static final int imageButton_beg=0x7f090006;
         public static final int imageButton_send=0x7f090001;
-        public static final int imageView1=0x7f090009;
-        public static final int image_money_bill=0x7f09000a;
-        public static final int radioGroup=0x7f09000b;
-        public static final int radio_Contact=0x7f09000e;
-        public static final int radio_Mail=0x7f09000c;
-        public static final int radio_Phone=0x7f09000d;
+        public static final int image_money_bill=0x7f090009;
+        public static final int radioGroup=0x7f09000a;
+        public static final int radio_Contact=0x7f09000d;
+        public static final int radio_Mail=0x7f09000b;
+        public static final int radio_Phone=0x7f09000c;
         public static final int textView1=0x7f090000;
     }
     public static final class layout {
@@ -59,7 +65,8 @@ public final class R {
         public static final int activity_main=0x7f030002;
         public static final int activity_my_account=0x7f030003;
         public static final int activity_send_beg=0x7f030004;
-        public static final int activity_wallet=0x7f030005;
+        public static final int activity_sign_up=0x7f030005;
+        public static final int activity_wallet=0x7f030006;
     }
     public static final class menu {
         public static final int jackpot=0x7f080000;
@@ -67,7 +74,8 @@ public final class R {
         public static final int main=0x7f080002;
         public static final int my_account=0x7f080003;
         public static final int send_beg=0x7f080004;
-        public static final int wallet=0x7f080005;
+        public static final int sign_up=0x7f080005;
+        public static final int wallet=0x7f080006;
     }
     public static final class string {
         public static final int action_settings=0x7f050001;
@@ -82,6 +90,7 @@ public final class R {
         public static final int title_activity_jackpot_form=0x7f05000b;
         public static final int title_activity_my_account=0x7f05000c;
         public static final int title_activity_seng_beg=0x7f050008;
+        public static final int title_activity_sign_up=0x7f05000d;
         public static final int title_activity_wallet=0x7f05000a;
     }
     public static final class style {
