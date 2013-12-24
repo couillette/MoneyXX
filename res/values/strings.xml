@@ -21,5 +21,6 @@
     <string name="title_activity_jackpot_form">JackpotFormActivity</string>
     <string name="title_activity_my_account">MyAccountActivity</string>
     <string name="title_activity_sign_up">Sign_upActivity</string>
+    <string name="error_signup">You need to complete the required field to continue</string>
 
 </resources>

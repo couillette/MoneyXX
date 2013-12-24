@@ -3,15 +3,13 @@ package com.entity;
 import com.stackmob.sdk.model.StackMobUser;
 
 public class SignedUser extends StackMobUser{
+	
 
 	private String username;
 	private int phone;
 	private String email;
 	private int creditCardTEST;
-//	private int ip;
-//	private int id_Address;
-//	private int id_Account;
-	
+
 	
 	public SignedUser(String username, String password, String email , int creditCardTEST){
 		super(SignedUser.class, username, password);
@@ -19,8 +17,9 @@ public class SignedUser extends StackMobUser{
 		this.creditCardTEST = creditCardTEST;
 	}
 	
-	
-	
+	public SignedUser(){
+		super(SignedUser.class);
+	}
 	
 
 //	public int getId_Address() {
@@ -38,6 +37,14 @@ public class SignedUser extends StackMobUser{
 //	public void setId_Account(int id_Account) {
 //		this.id_Account = id_Account;
 //	}
+//	
+//	public int getIp() {
+//	return ip;
+//}
+//
+//public void setIp(int ip) {
+//	this.ip = ip;
+//}
 
 	public String getUsername() {
 		return username;
@@ -55,21 +62,13 @@ public class SignedUser extends StackMobUser{
 		this.phone = phone;
 	}
 
-	public String getMail() {
+	public String getEmail() {
 		return email;
 	}
 
-	public void setMail(String email) {
+	public void setEmail(String email) {
 		this.email = email;
 	}
-
-//	public int getIp() {
-//		return ip;
-//	}
-//
-//	public void setIp(int ip) {
-//		this.ip = ip;
-//	}
 	
 
 }

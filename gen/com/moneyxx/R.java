@@ -34,22 +34,23 @@ public final class R {
     }
     public static final class id {
         public static final int AutoComp_Receiver=0x7f09000e;
-        public static final int action_settings=0x7f090018;
+        public static final int LinearLayout1=0x7f090012;
+        public static final int action_settings=0x7f09001a;
         public static final int buton_SendRequest=0x7f090010;
         public static final int button_Beg=0x7f090007;
         public static final int button_BegRequest=0x7f090011;
         public static final int button_Jackpot=0x7f090005;
         public static final int button_MyAccount=0x7f090003;
         public static final int button_Send=0x7f090002;
-        public static final int button_SignUp=0x7f090017;
+        public static final int button_SignUp=0x7f090019;
         public static final int button_Wallet=0x7f090004;
         public static final int editText1=0x7f09000f;
         public static final int editText_AmountOfMoney=0x7f090008;
-        public static final int editText_CreditCard=0x7f090015;
-        public static final int editText_Email=0x7f090014;
-        public static final int editText_Password=0x7f090013;
-        public static final int editText_PostalAddress=0x7f090016;
-        public static final int editText_Username=0x7f090012;
+        public static final int editText_CreditCard=0x7f090017;
+        public static final int editText_Email=0x7f090016;
+        public static final int editText_Password=0x7f090015;
+        public static final int editText_PostalAddress=0x7f090018;
+        public static final int editText_Username=0x7f090014;
         public static final int imageButton_beg=0x7f090006;
         public static final int imageButton_send=0x7f090001;
         public static final int image_money_bill=0x7f090009;
@@ -58,6 +59,7 @@ public final class R {
         public static final int radio_Mail=0x7f09000b;
         public static final int radio_Phone=0x7f09000c;
         public static final int textView1=0x7f090000;
+        public static final int textView_singup=0x7f090013;
     }
     public static final class layout {
         public static final int activity_jackpot=0x7f030000;
@@ -85,6 +87,7 @@ public final class R {
         public static final int button_MyAccount=0x7f050007;
         public static final int button_Send=0x7f050005;
         public static final int button_Wallet=0x7f050003;
+        public static final int error_signup=0x7f05000e;
         public static final int hello_world=0x7f050002;
         public static final int title_activity_jackpot=0x7f050009;
         public static final int title_activity_jackpot_form=0x7f05000b;
