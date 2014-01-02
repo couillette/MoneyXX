@@ -34,53 +34,13 @@
         android:layout_marginRight="20sp"
         android:src="@drawable/ic_money_bill2" />
 
-    <RadioGroup
-        android:id="@+id/radioGroup"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentRight="true"
-        android:layout_below="@+id/editText_AmountOfMoney"
-        android:layout_marginTop="29dp"
-        android:gravity="center"
-        android:orientation="horizontal">
-
-        <RadioButton
-            android:id="@+id/radio_Mail"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:checked="true"
-            android:text="Mail" />
-
-        <RadioButton
-            android:id="@+id/radio_Phone"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Phone" />
-
-        <RadioButton
-            android:id="@+id/radio_Contact"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Contact" />
-    </RadioGroup>
-
-    <MultiAutoCompleteTextView
-        android:id="@+id/AutoComp_Receiver"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignLeft="@+id/editText1"
-        android:layout_below="@+id/radioGroup"
-        android:layout_marginTop="18dp"
-        android:ems="10"
-        android:text="to :" />
-
     <Button
         android:id="@+id/buton_SendRequest"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         android:layout_alignParentRight="true"
+        android:onClick="onClick"
         android:text="SendMoney" />
 
     <Button
@@ -89,16 +49,41 @@
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         android:layout_alignParentLeft="true"
+        android:onClick="onClick"
         android:text="BegMoney" />
 
     <EditText
-        android:id="@+id/editText1"
+        android:id="@+id/editText_message"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/AutoComp_Receiver"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="21dp"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentRight="true"
+        android:layout_below="@+id/AutoComp_TO:"
+        android:layout_marginTop="18dp"
         android:ems="10"
-        android:text="message" />
+        android:hint="message" />
+
+    <TextView
+        android:id="@+id/textView_messageSendorBeg"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/button_BegRequest"
+        android:layout_alignParentRight="true"
+        android:layout_below="@+id/editText_AmountOfMoney"
+        android:layout_marginTop="16dp"
+        android:text="Enter or Search in your contacts by Name, Phone or Email." />
+
+    <AutoCompleteTextView
+        android:id="@+id/AutoComp_TO:"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/textView_messageSendorBeg"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="20dp"
+        android:ems="10"
+        android:hint="to :" >
+
+        <requestFocus />
+    </AutoCompleteTextView>
 
 </RelativeLayout>

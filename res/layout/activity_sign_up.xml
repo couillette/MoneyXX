@@ -19,7 +19,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
-        android:layout_marginTop="20dp"
+        android:layout_marginTop="50dp"
         android:background="@color/pastelGreen"
         android:ems="10"
         android:hint="Username* (REQUIRED)"
@@ -30,7 +30,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
-        android:layout_marginTop="23dp"
+        android:layout_marginTop="30dp"
         android:background="@color/pastelGreen"
         android:ems="10"
         android:hint="password* (REQUIRED)"
@@ -41,34 +41,22 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
-        android:layout_marginTop="45dp"
+        android:layout_marginTop="30dp"
         android:background="@color/pastelGreen"
         android:ems="10"
         android:hint="email* (REQUIRED)"
         android:inputType="textEmailAddress" />
 
     <EditText
-        android:id="@+id/editText_CreditCard"
+        android:id="@+id/editText_Phone"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
         android:layout_marginTop="30dp"
         android:background="@color/pastelGreen"
         android:ems="10"
-        android:hint="Credit Card* (REQUIRED)"
-        android:inputType="number" />
-
-    <EditText
-        android:id="@+id/editText_PostalAddress"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:layout_marginTop="30dp"
-        android:background="@color/pastelGreen"
-        android:ems="10"
-        android:hint="Postal address* (optional)"
-        android:inputType="textPostalAddress" >
-    </EditText>
+        android:hint="phone* (REQUIRED)"
+        android:inputType="phone" />
 
     <Button
         android:id="@+id/button_SignUp"
@@ -76,6 +64,7 @@
         android:layout_height="wrap_content"
         android:layout_gravity="right"
         android:layout_marginTop="50dp"
+        android:layout_marginRight="40dp"
         android:onClick="onClick"
         android:text="SignUp" />
 

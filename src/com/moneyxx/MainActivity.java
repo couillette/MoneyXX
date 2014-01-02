@@ -1,6 +1,6 @@
 package com.moneyxx;
 
-import com.entity.SignedUser;
+import com.entity.UserRegistered;
 import com.moneyxx.R;
 import com.stackmob.android.sdk.common.StackMobAndroid;
 
@@ -18,6 +18,7 @@ public class MainActivity extends Activity {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_main);
+		
 		
 	}
 	
