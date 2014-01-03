@@ -1,9 +1,14 @@
 package com.moneyxx;
 
+import com.entity.UserAccount;
+import com.entity.UserRegistered;
 import com.moneyxx.R;
+import com.server.StackmobQuery;
 
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.app.Activity;
+import android.content.SharedPreferences;
 import android.support.v4.app.NavUtils;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -17,7 +22,10 @@ public class JackpotActivity extends Activity {
 		
 		//Enable the callBack button
 		getActionBar().setDisplayHomeAsUpEnabled(true);
+		
 	}
+	
+	
 
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
@@ -25,6 +33,7 @@ public class JackpotActivity extends Activity {
 		getMenuInflater().inflate(R.menu.jackpot, menu);
 		return true;
 	}
+	
 	
 	//Set the call back to return to previous activity
 	@Override

@@ -1,9 +1,12 @@
 package com.moneyxx;
 
+import com.entity.UserAccount;
+import com.entity.UserRegistered;
 import com.moneyxx.R;
 import com.server.Mail;
 import com.server.PhoneData;
 import com.server.SendEmailAsyncTask;
+import com.server.StackmobQuery;
 
 import android.os.Bundle;
 import android.preference.PreferenceManager;
@@ -25,8 +28,12 @@ public class MyWalletActivity extends Activity {
 
 	private String bankRIB;
 	private String creditCard;
+	private String username;
 	private PhoneData phoneData;
 	private TextView error_message;
+	
+	// Query on stackmob
+	StackmobQuery stQuery;
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -43,7 +50,7 @@ public class MyWalletActivity extends Activity {
 		if (view.getId() == R.id.button_WallettOK) {
 			
 			bankRIB = ((EditText) findViewById(R.id.editText_bankRIB)).getText().toString();
-			creditCard = ((EditText) findViewById(R.id.editText_crediCard)).getText().toString();
+			creditCard = ((EditText) findViewById(R.id.editText_creditCard)).getText().toString();
 			
 			if (!(bankRIB.trim().equals("") || creditCard.trim().equals(""))) {
 				phoneData = new PhoneData();
@@ -51,7 +58,16 @@ public class MyWalletActivity extends Activity {
 				phoneData.savePrefs(this, "BANKRIB", bankRIB);
 				phoneData.savePrefs(this, "CREDITCARD", creditCard);
 				
+				//set relationship between UserRegisterd and Account on stackmob
+				UserAccount account = new UserAccount(bankRIB, creditCard, "0");
+				account.save();
+				UserRegistered usr = new UserRegistered();
+				usr.setID(username.trim());
+				usr.setUser_account(account);
+				usr.save();
+				
 				setContentView(R.layout.activity_my_wallet);
+				loadPrefs();
 			}else {
 				// Display error message when required field are not complete
 				error_message = (TextView) findViewById(R.id.textView_Wallet1);
@@ -67,12 +83,14 @@ public class MyWalletActivity extends Activity {
 	private void loadPrefs(){
 		SharedPreferences pref = PreferenceManager.getDefaultSharedPreferences(this);
 		boolean AccountIsOK = pref.getBoolean("ACCOUNT", false);
+		username = pref.getString("USERNAME", null);
 		
 		// Sign_up activity should be display only at the first time. For this we need to store preference
 		if( AccountIsOK ){
 			this.setContentView(R.layout.activity_my_wallet);
 			bankRIB = pref.getString("BANKRIB", null);
 			creditCard = pref.getString("CREDITCARD", null);
+			
 			
 			TextView bank_info = (TextView) findViewById(R.id.textView_BankRIB_info);
 			TextView creditCard_info = (TextView) findViewById(R.id.textView_CreditCard_info);

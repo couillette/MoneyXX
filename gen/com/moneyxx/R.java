@@ -58,8 +58,8 @@ public final class R {
         public static final int editText_Password=0x7f090020;
         public static final int editText_Phone=0x7f090022;
         public static final int editText_Username=0x7f09001f;
-        public static final int editText_bankRIB=0x7f090014;
-        public static final int editText_crediCard=0x7f090012;
+        public static final int editText_bankRIB=0x7f090012;
+        public static final int editText_creditCard=0x7f090014;
         public static final int editText_message=0x7f09001a;
         public static final int imageButton_beg=0x7f090003;
         public static final int imageButton_send=0x7f090001;

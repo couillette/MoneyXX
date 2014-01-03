@@ -2,8 +2,7 @@ package com.server;
 
 import java.util.List;
 
-import android.text.GetChars;
-
+import com.entity.UserAccount;
 import com.entity.UserRegistered;
 import com.stackmob.sdk.api.StackMobQuery;
 import com.stackmob.sdk.callback.StackMobQueryCallback;
@@ -13,17 +12,24 @@ public class StackmobQuery {
 	
 	Boolean query;
 	Boolean userExist;
+	String username;
+	List<UserRegistered> user;
+	String userAccountID;
+	int userAccountSolde;
 
 
-	public Boolean checkIfUsernameExist(String usernameval){
+	
+	public Boolean checkByUsername(String usernameval){
 		userExist = false;
-//		query = false;
+		query = false;
+		
+		final String name = usernameval.trim();
 
 		 // "while" because stackmob query are asynchronous
-//		while(!query){
+		while(!query){
 		UserRegistered.query(
 				UserRegistered.class, 
-				new StackMobQuery().fieldIsEqualTo("username", usernameval.trim()),
+				new StackMobQuery().fieldIsEqualTo("username", name),
 				new StackMobQueryCallback<UserRegistered>() {
 
 					@Override
@@ -32,21 +38,24 @@ public class StackmobQuery {
 					}
 
 					@Override
-					public void success(List<UserRegistered> user) {
-						if(!user.isEmpty()){
+					public void success(List<UserRegistered> userN) {
+						if(!userN.isEmpty()){
 							userExist = true;
 						}
 						query=true;
 					}
 				});
-//		 }
+		 }
 		 return userExist;
 	}
 	
-	
-	public Boolean checkIfUserIsRegisteredByMailOrPhone(String phoneNumber, String email){
+
+
+
+	public Boolean checkByMailOrPhone(String phoneNumber, String email){
 		userExist = false;
 		query = false;
+		username = "";
 		 
 		 //to make query on phoneNumber we had to change phone attribute in UserRegistered
 		 //into String field. because you have things like "+33" or "("... in android field numbers
@@ -73,6 +82,7 @@ public class StackmobQuery {
 					public void success(List<UserRegistered> user) {
 						if(!user.isEmpty()){
 							userExist = true;
+							username = user.get(0).getUsername().toString().trim();
 						} else {
 							userExist = false;
 						}
@@ -84,6 +94,66 @@ public class StackmobQuery {
 	}
 	
 	
+	public String fetchUserAccountID (String usernamev){
+		userAccountID = "";
+		query = false;
+		
+		 while(!query){
+				UserRegistered.query(
+						UserRegistered.class, 
+						new StackMobQuery().fieldIsEqualTo("userregistered_id", usernamev.trim()),
+						new StackMobQueryCallback<UserRegistered>() {
+
+							@Override
+							public void failure(StackMobException e) {
+								query=true;
+							}
+
+							@Override
+							public void success(List<UserRegistered> userA) {
+								if(!userA.isEmpty()){
+									userAccountID = userA.get(0).getUser_account().getID().toString().trim();
+								} 
+								query=true;
+							}
+						});
+				 }
+		 return userAccountID;
+		
+	}
+	
+	
+	public int fetchUserAccountSolde (String accountID){
+		userAccountSolde = 0;
+		query = false;
+		
+		 while(!query){
+				UserAccount.query(
+						UserAccount.class, 
+						new StackMobQuery().fieldIsEqualTo("useraccount_id", accountID.trim()),
+						new StackMobQueryCallback<UserAccount>() {
+
+							@Override
+							public void failure(StackMobException e) {
+								query=true;
+							}
+
+							@Override
+							public void success(List<UserAccount> userAcc) {
+								if(!userAcc.isEmpty()){
+										userAccountSolde =  Integer.parseInt(userAcc.get(0).getSolde().toString());
+//										userAccountSolde = 5;
+								} 
+								query=true;
+							}
+						});
+				 }
+		 return userAccountSolde;
+	}
+	
+	
+	
+	
 	 private void fetchAllUserRegistered() {
 		 
 		    // fetch all todo objects from StackMob
@@ -91,17 +161,48 @@ public class StackmobQuery {
 		 UserRegistered.query(UserRegistered.class, new StackMobQuery(), new StackMobQueryCallback<UserRegistered>() {
 		      @Override
 		      public void success(List<UserRegistered> userReg) {
-//		        muserReg = userReg; // set our todos container
-
-		        // set our list view adapter
-//		        mTodoAdapter = new TodoAdapter(thisContext, android.R.layout.simple_list_item_1, mTodos);
-
-		        // remember that in order to update UI in main view, it needs to be run from UI thread
+		    	  for(UserRegistered u : userReg){
+		    		  username = u.getUsername();
+		    	  }
 		      }
 
 		      @Override
-		      public void failure(StackMobException e) {
-		      }
-		    });
+		      public void failure(StackMobException e) {}});
 		  }
+	 
+	 
+	 
+	 
+	 
+		public Boolean getQuery() {
+		return query;
+	}
+
+	public void setQuery(Boolean query) {
+		this.query = query;
+	}
+
+		public int getUserAccountSolde() {
+		return userAccountSolde;
+		}
+
+		public String getUsername() {
+			return username;
+		}
+		
+		public List<UserRegistered> getUser() {
+			return user;
+		}
+		
+		public Boolean getUserExist(){
+			return userExist;
+		}
+
+		public String getUserAccountID() {
+			return userAccountID;
+		}
+
+		public void setUserAccountID(String userAccountID) {
+			this.userAccountID = userAccountID;
+		}
 }

@@ -4,40 +4,36 @@ import com.stackmob.sdk.model.StackMobModel;
 
 public class UserAccount extends StackMobModel{
 	
-	private String banque_RIB;
+	private String bankRIB;
 	private String creditCard;
-	private String moneyXX_solde;
+	private String solde;
 	
-	private UserRegistered user_Account;
 	
 	
 	public UserAccount(){
 		super(UserAccount.class);
 	}
 	
-	public UserAccount(String banque_RIB, String creditCard, String solde){
+	public UserAccount(String id){
 		super(UserAccount.class);
-		this.banque_RIB = banque_RIB;
-		this.creditCard = creditCard;
-		this.moneyXX_solde = solde;
+		this.setID(id);
 	}
 	
+	public UserAccount(String bank_RIB, String creditCard, String solde){
+		super(UserAccount.class);
+		this.bankRIB = bank_RIB.trim();
+		this.creditCard = creditCard.trim();
+		this.solde = solde.trim();
+	}
 	
 
-	public UserRegistered getUser_Account() {
-		return user_Account;
+
+	public String getbankRIB() {
+		return bankRIB;
 	}
 
-	public void setUser_Account(UserRegistered user_Account) {
-		this.user_Account = user_Account;
-	}
-
-	public String getBanque_RIB() {
-		return banque_RIB;
-	}
-
-	public void setBanque_RIB(String banque_RIB) {
-		this.banque_RIB = banque_RIB;
+	public void setbankRIB(String bankRIB) {
+		this.bankRIB = bankRIB;
 	}
 
 	public String getCreditCard() {
@@ -48,12 +44,12 @@ public class UserAccount extends StackMobModel{
 		this.creditCard = creditCard;
 	}
 
-	public String getMoneyXX_solde() {
-		return moneyXX_solde;
+	public String getSolde() {
+		return solde;
 	}
 
-	public void setMoneyXX_solde(String moneyXX_solde) {
-		this.moneyXX_solde = moneyXX_solde;
+	public void setSolde(String solde) {
+		this.solde = solde;
 	}
 
 }

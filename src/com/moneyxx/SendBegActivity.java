@@ -20,14 +20,18 @@ import com.stackmob.sdk.callback.StackMobQueryCallback;
 import com.stackmob.sdk.exception.StackMobException;
 
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.provider.ContactsContract;
 import android.provider.ContactsContract.CommonDataKinds.Email;
 import android.provider.ContactsContract.CommonDataKinds.Phone;
 import android.provider.ContactsContract.Data;
 import android.support.v4.app.NavUtils;
 import android.app.AlertDialog;
+import android.app.AlertDialog.Builder;
 import android.content.DialogInterface;
+import android.content.DialogInterface.OnClickListener;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.database.Cursor;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -44,9 +48,6 @@ public class SendBegActivity extends BaseActivity {
 	// Read local contact
 	private ArrayList<Map<String, String>> contactList;
 	
-	// Query on stackmob
-	StackmobQuery stQuery;
-	
 	//Selected contact
 	private String[] contactData = new String[] { "Name", "Phone", "Email" };
 	
@@ -55,6 +56,8 @@ public class SendBegActivity extends BaseActivity {
 	
 	Boolean userIsRegisterd;
 	String thisUserName;
+	String bankRIB;
+	String creditCard;
 	
 
 	public void onCreate(Bundle savedInstanceState) {
@@ -70,9 +73,18 @@ public class SendBegActivity extends BaseActivity {
 		//Enable the callBack button
 		getActionBar().setDisplayHomeAsUpEnabled(true);
 		
+		
+//		SharedPreferences pref = PreferenceManager.getDefaultSharedPreferences(this);
+//		thisUserName = pref.getString("USERNAME", null);
+//		final String amount = ((EditText) findViewById(R.id.editText_AmountOfMoney)).getText().toString();
+		
+		
+		
+		
+		
 //		thisUserName = query username in preferences;
 		
-//		UserAccount account = new UserAccount("123456789", "123456789", "123456789", "0");
+//		UserAccount account = new UserAccount("123456789", "123456789", "0");
 //		UserAccount account = new UserAccount("1", "123456789", "123456789", "0");
 //		account.setID("1111222");
 //		account.save();
@@ -100,114 +112,167 @@ public class SendBegActivity extends BaseActivity {
 	
 	// if user click on the buttons
 	public void onClick(View view){
+		if (loadPrefs()){
+			final String amount = ((EditText) findViewById(R.id.editText_AmountOfMoney)).getText().toString();
+			userIsRegisterd = false;
+			
+			// query on stackmob datastore to check if user are registered or not
+			// call onItemClickListener because it is asynchronous, which enhance speed.
+			// put userIsRegisterd to true or false.
+			final StackmobQuery stQuery = new StackmobQuery();
+			userIsRegisterd = stQuery.checkByMailOrPhone(contactData[1], contactData[2]);
+			
+				if (userIsRegisterd) {
+					alertDialog_text = "\n\nGreat! This person is kown and have a MoneyXX account.";
+					
+				} else {
+					alertDialog_text = "\n\nWARNING : this person doesn't have any MoneyXX Account"
+							+ "\nthis action is not allowed yet";
+//							+ "\n- 'OK' and we will credit a temporary account based on the information "
+//							+ "you gave and send him a message to register to MoneyXX"
+//							+ "\n- 'NO' if you are not sure";
+				}
+		
+		
 		switch (view.getId()) {
 		
 		//if user click on "Send Money"
 		case R.id.buton_SendRequest:
 			
-			final String amount = ((EditText) findViewById(R.id.editText_AmountOfMoney)).getText().toString();
-
-			// query on stackmob datastore to check if user are registered or not
-			// call onItemClickListener because it is asynchronous, which enhance speed.
-			// put userIsRegisterd to true or false.
-			stQuery = new StackmobQuery();
-			userIsRegisterd = stQuery.checkIfUserIsRegisteredByMailOrPhone(contactData[1], contactData[2]);
+			Builder send_message = new AlertDialog.Builder(this);
+			send_message.setTitle("Warning");
+			send_message.setMessage("You are going to send "+amount+" $ to :\n" +
+					"  "+contactData[0]+"\n  "+contactData[1]+"\n  "+contactData[2] + alertDialog_text);
 			
-				if (userIsRegisterd) {
-					alertDialog_text = "\n\nGreat! This person is kown and have a MoneyXX account.";
-				} else {
-					alertDialog_text = "\n\nWARNING : this person doesn't have any MoneyXX Account"
-							+ "\n- 'OK' and we will credit a temporary account based on the information "
-							+ "you gave and send him a message to register to MoneyXX"
-							+ "\n- 'NO' if you are not sure";
-				}
-
-			
-			new AlertDialog.Builder(this)
-			.setTitle("Warning")
-			.setMessage("You are going to send "+amount+" $ to :\n" +
-					"  "+contactData[0]+"\n  "+contactData[1]+"\n  "+contactData[2] + alertDialog_text)
-			
-			.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+			send_message.setPositiveButton("OK", new DialogInterface.OnClickListener() {
 				@Override
 				public void onClick(DialogInterface dialog, int which) {
 					if ( userIsRegisterd ){
-//						
-//						//credit receiver account
-//						//debit sender account
-					
-//						//send message (mail or sms) to receiver
-						String[] mailAddressR = {contactData[2].trim()};
-						String subR = "money earned";
-						String messageR = "you just receive "+amount+"$ from "+thisUserName+
-							" and your account was credited";
-						new SendEmailAsyncTask(mailAddressR, subR, messageR).execute();
-					
-						//send message (mail or sms) e to sender
-						//change contactData[2] with loadprefs.
-						String[] mailAddressS = {contactData[2].trim()};
-						String subS = "money sent";
-						String messageS = "you sent "+amount+"$ to "+contactData[0].trim()+
-							" and your account was debited";
-						new SendEmailAsyncTask(mailAddressS, subS, messageS).execute();
-						
-					} else if ( !userIsRegisterd ) {
-						
-						//create an account!!!
 						//credit receiver account
-//						//debit sender account
-						
+						//debit sender account
+						creditDebit(stQuery.getUsername(), thisUserName, amount);
+					
 						//send message (mail or sms) to receiver
 						String[] mailAddressR = {contactData[2].trim()};
 						String subR = "money earned";
+						// add message from sender fill in the layout
+						String m = ((EditText)findViewById(R.id.editText_message)).getText().toString();
 						String messageR = "you just receive "+amount+"$ from "+thisUserName+
-							" and your account was credited";
+								" and your account was credited/n/n"+m;
 						new SendEmailAsyncTask(mailAddressR, subR, messageR).execute();
 					
-						//send message (mail or sms) e to sender
-						//change contactData[2] with loadprefs.
-						String[] mailAddressS = {contactData[2].trim()};
+						//send message (mail or sms) to sender
+						String[] mailAddressS = {thisUserName.trim()};
 						String subS = "money sent";
 						String messageS = "you sent "+amount+"$ to "+contactData[0].trim()+
 							" and your account was debited";
 						new SendEmailAsyncTask(mailAddressS, subS, messageS).execute();
-
-					}
+						
+					} 
+//						else if ( !userIsRegisterd ) {
+//						
+//						//create an account!!!
+//						//credit receiver account
+////						//debit sender account
+//						
+//						//send message (mail or sms) to receiver
+//						String[] mailAddressR = {contactData[2].trim()};
+//						String subR = "money earned";
+//						String messageR = "you just receive "+amount+"$ from "+thisUserName+
+//							" and your account was credited";
+//						new SendEmailAsyncTask(mailAddressR, subR, messageR).execute();
+//					
+//						//send message (mail or sms) to sender
+//						String[] mailAddressS = {thisUserName.trim()};
+//						String subS = "money sent";
+//						String messageS = "you sent "+amount+"$ to "+contactData[0].trim()+
+//							" and your account was debited";
+//						new SendEmailAsyncTask(mailAddressS, subS, messageS).execute();
+//
+//					}
 				}
-			})
-			.setNegativeButton("NO", new DialogInterface.OnClickListener() {
-				
+			});
+			send_message.setNegativeButton("NO", new DialogInterface.OnClickListener() {
 				@Override
 				public void onClick(DialogInterface dialog, int which) {
-					// TODO Auto-generated method stub
-				}
-			})
-			.show();
+					contactList.clear();
+					PopulateContactList();
+				}});
+				
+			send_message.show();
+			
+			
 		break;
 		
 		//if user click on "Beg Money"
 		case  R.id.button_BegRequest:
 			
-			new AlertDialog.Builder(this)
-			.setTitle("Warning contact")
-			.setMessage("va bien niker BEG")
-			.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+			Builder beg_message = new AlertDialog.Builder(this);
+			beg_message.setTitle("Warning");
+			beg_message.setMessage("You want to beg "+amount+" $ to :\n" +
+					"  "+contactData[0]+"\n  "+contactData[1]+"\n  "+contactData[2] + alertDialog_text);
+			
+			beg_message.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+				@Override
+				public void onClick(DialogInterface dialog, int which) {
+					if ( userIsRegisterd ){
+						
+						//send message (mail or sms) to receiver
+						String[] mailAddressR = {contactData[2].trim()};
+						String subR = "money earned";
+						// add message from sender fill in the layout
+						String m = ((EditText)findViewById(R.id.editText_message)).getText().toString();
+						String messageR = thisUserName+" is beging you "+amount+"$ from"
+								+" We need your authorization to do the transaction. You have to "+
+								"go on MoneyXX to accepte or refuse/n/n"+m;
+						new SendEmailAsyncTask(mailAddressR, subR, messageR).execute();
+					
+						//send message (mail or sms) to sender
+						String[] mailAddressS = {thisUserName.trim()};
+						String subS = "money sent";
+						String messageS = "you sent "+amount+"$ to "+contactData[0].trim()+
+							" and your account was debited";
+						new SendEmailAsyncTask(mailAddressS, subS, messageS).execute();
+						
+						// il faut créer un tableau qui recense toutes les demandes
+						// et ajouter une ligne à ce tableau à chaque new demande
+						// enregistrer les transactions dans la bdd
+						
+					} 
+//						else if ( !userIsRegisterd ) {
+//						
+//						//create an account!!!
+//						//credit receiver account
+////						//debit sender account
+//						
+//						//send message (mail or sms) to receiver
+//						String[] mailAddressR = {contactData[2].trim()};
+//						String subR = "money earned";
+//						String messageR = "you just receive "+amount+"$ from "+thisUserName+
+//							" and your account was credited";
+//						new SendEmailAsyncTask(mailAddressR, subR, messageR).execute();
+//					
+//						//send message (mail or sms) to sender
+//						String[] mailAddressS = {thisUserName.trim()};
+//						String subS = "money sent";
+//						String messageS = "you sent "+amount+"$ to "+contactData[0].trim()+
+//							" and your account was debited";
+//						new SendEmailAsyncTask(mailAddressS, subS, messageS).execute();
+//
+//					}
+				}
+			});
+			beg_message.setNegativeButton("NO", new DialogInterface.OnClickListener() {
 				
 				@Override
 				public void onClick(DialogInterface dialog, int which) {
 					// TODO Auto-generated method stub
 				}
-			})
-			.setNegativeButton("NO", new DialogInterface.OnClickListener() {
-				
-				@Override
-				public void onClick(DialogInterface dialog, int which) {
-					// TODO Auto-generated method stub
-				}
-			})
-			.show();
+			});
+			beg_message.show();
 			
 		break;
+		}
 		}
 		
 	}
@@ -257,12 +322,40 @@ public class SendBegActivity extends BaseActivity {
 //	}
 	
 	
-	public void creditAccount(){
-		String amount = ((EditText) findViewById(R.id.editText_AmountOfMoney)).getText().toString();
-		String [] contactData_buf = contactData;
-//		userIsRegisterd
+	public void creditDebit(String sender, String receiver, String amount) {
+		// debit the sender account
+		StackmobQuery stQuery = new StackmobQuery();
+		String accountIDs = stQuery.fetchUserAccountID(sender.trim());
+
+		StackmobQuery stQuery1 = new StackmobQuery();
+		int solde0 = stQuery1.fetchUserAccountSolde(accountIDs);
+		int solde1 = Integer.parseInt(amount.trim());
+
+		UserAccount us = new UserAccount();
+		us.setID(accountIDs);
+		
+		// debit "-"
+		int soldef = solde0 - solde1;
+		us.setSolde("" + soldef);
+		us.save();
+		
+		
+		// credit the receiver account
+		StackmobQuery stQuery2 = new StackmobQuery();
+		String accountIDr = stQuery2.fetchUserAccountID(receiver.trim());
+
+		StackmobQuery stQuery3 = new StackmobQuery();
+		int solde00 = stQuery3.fetchUserAccountSolde(accountIDr);
+		int solde11 = Integer.parseInt(amount.trim());
+
+		UserAccount ur = new UserAccount();
+		ur.setID(accountIDr);
+		
+		// credit "+"
+		int soldeff = solde00 + solde11;
+		ur.setSolde("" + soldeff);
+		ur.save();
 	}
-	
 	
 	
 	// allow to find by Name, phone number or email in all your local contacts
@@ -493,6 +586,38 @@ public class SendBegActivity extends BaseActivity {
 		TxtView_AutoComp_TO.setAdapter(contactAdapter);
 
 	}
+	
+	
+	private Boolean loadPrefs(){
+		SharedPreferences pref = PreferenceManager.getDefaultSharedPreferences(this);
+		boolean AccountIsOK = pref.getBoolean("ACCOUNT", false);
+		
+		// Sign_up activity should be display only at the first time. For this we need to store preference
+		if( AccountIsOK ){
+			bankRIB = pref.getString("BANKRIB", null);
+			creditCard = pref.getString("CREDITCARD", null);
+			thisUserName = pref.getString("USERNAME", null);
+			
+		}else{
+			Builder build = new AlertDialog.Builder(this);
+			build.setTitle("WARNING");
+			build.setMessage("You have to fill your RIB and CreditCard in Wallet " +
+					"if you want to send and beg money !");
+			build.setPositiveButton("Go to Wallet", new OnClickListener() {
+				@Override
+				public void onClick(DialogInterface dialog, int which) {
+					Intent myIntent = new Intent(SendBegActivity.this, MyWalletActivity.class);
+					SendBegActivity.this.startActivity(myIntent);
+				}
+			});
+			build.setNegativeButton("Cancel", new OnClickListener() {
+				@Override
+				public void onClick(DialogInterface dialog, int which) {}});
+			build.show();
+		}
+		return AccountIsOK;
+	}
+	
 	
 	
 	
