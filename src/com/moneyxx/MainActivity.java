@@ -57,16 +57,10 @@ public class MainActivity extends Activity {
 		
 		//if user click on "Wallet"
 		case R.id.button_Wallet:
-			myIntent = new Intent(MainActivity.this, WalletActivity.class);
+			myIntent = new Intent(MainActivity.this, MyWalletActivity.class);
 			MainActivity.this.startActivity(myIntent);
 		break;
 		
-		//if user click on "My Account"
-		case R.id.button_MyAccount:
-			myIntent = new Intent(MainActivity.this, MyAccountActivity.class);
-			MainActivity.this.startActivity(myIntent);
-		break;
-
 		}
 	}
 	

@@ -1,6 +1,6 @@
 package com.server;
 
-import com.moneyxx.WalletActivity;
+import com.moneyxx.MyWalletActivity;
 
 import android.os.AsyncTask;
 import android.util.Log;

@@ -10,12 +10,12 @@
     tools:context=".MyAccountActivity" >
     
       <TextView
-        android:id="@+id/textView_MyAcccount"
+        android:id="@+id/textView_MyWallet"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
         android:layout_alignParentTop="true"
-        android:text="My Account"
+        android:text="My Wallet"
         android:textColor="@color/blank"
         android:textSize="30dp" />
     
@@ -45,7 +45,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_above="@+id/button_Balance"
-        android:layout_alignLeft="@+id/textView_MyAcccount"
+        android:layout_alignLeft="@+id/textView_MyWallet"
         android:layout_alignParentRight="true"
         android:layout_marginBottom="27dp"
         android:text="Historics" />
@@ -83,8 +83,8 @@
         android:id="@+id/textView_BankRIB_info"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignLeft="@+id/textView_MyAcccount"
-        android:layout_below="@+id/textView_MyAcccount"
+        android:layout_alignLeft="@+id/textView_MyWallet"
+        android:layout_below="@+id/textView_MyWallet"
         android:layout_marginLeft="14dp"
         android:layout_marginTop="19dp"
         android:text="Bank RIB: " />

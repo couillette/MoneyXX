@@ -7,7 +7,7 @@
  
     
     <TextView
-        android:id="@+id/textView_MyAcccount1"
+        android:id="@+id/textView_Wallet1"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="17dp"
@@ -35,7 +35,7 @@
 
   
      <TextView
-        android:id="@+id/textView2"
+        android:id="@+id/textView_crediCard"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="20dp"
@@ -51,7 +51,7 @@
         android:inputType="number" />
 
     <Button
-        android:id="@+id/button_AccountOK"
+        android:id="@+id/button_WallettOK"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="46dp"

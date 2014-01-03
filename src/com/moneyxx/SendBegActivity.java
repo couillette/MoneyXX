@@ -24,10 +24,13 @@ import android.provider.ContactsContract;
 import android.provider.ContactsContract.CommonDataKinds.Email;
 import android.provider.ContactsContract.CommonDataKinds.Phone;
 import android.provider.ContactsContract.Data;
+import android.support.v4.app.NavUtils;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.database.Cursor;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
@@ -64,6 +67,9 @@ public class SendBegActivity extends BaseActivity {
 		contactList.clear();
 		PopulateContactList();
 		
+		//Enable the callBack button
+		getActionBar().setDisplayHomeAsUpEnabled(true);
+		
 //		thisUserName = query username in preferences;
 		
 //		UserAccount account = new UserAccount("123456789", "123456789", "123456789", "0");
@@ -74,11 +80,6 @@ public class SendBegActivity extends BaseActivity {
 //		UserRegistered u = new UserRegistered("sergelefou", "qsdf", "serge@hotmail.fr", "0648765342");
 //		u.setUser_account(account);
 //		u.save();
-		
-		
-
-		
-		
 		
 //		String pS= "3344447532";
 //		UserRegistered uS = new UserRegistered("sergelefou", "qsdf", "serge@hotmail.fr", pS);
@@ -492,4 +493,27 @@ public class SendBegActivity extends BaseActivity {
 		TxtView_AutoComp_TO.setAdapter(contactAdapter);
 
 	}
+	
+	
+	
+	@Override
+	public boolean onCreateOptionsMenu(Menu menu) {
+		// Inflate the menu; this adds items to the action bar if it is present.
+		getMenuInflater().inflate(R.menu.send_beg, menu);
+		return true;
+	}
+	
+	//Set the call back to return to previous activity
+	@Override
+	public boolean onOptionsItemSelected(MenuItem item){
+		switch (item.getItemId()) {
+		case android.R.id.home:
+			NavUtils.navigateUpFromSameTask(this);
+			return true;
+		default:
+			return super.onOptionsItemSelected(item);
+		}
+	}
+	
+	
 }
