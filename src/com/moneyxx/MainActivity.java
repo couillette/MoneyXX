@@ -5,19 +5,25 @@ import com.moneyxx.R;
 import com.stackmob.android.sdk.common.StackMobAndroid;
 
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.app.Activity;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.view.Menu;
 import android.view.View;
+import android.widget.TextView;
 
 
 public class MainActivity extends Activity {
 	
 	Intent myIntent;
+	
+	private String username;
 
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_main);
+		loadPrefs();
 		
 		
 	}
@@ -62,6 +68,13 @@ public class MainActivity extends Activity {
 		break;
 
 		}
+	}
+	
+	private void loadPrefs() {
+		SharedPreferences pref = PreferenceManager.getDefaultSharedPreferences(getBaseContext());
+		String username = pref.getString("USERNAME", null);
+		TextView user_info = (TextView) findViewById(R.id.textView_User_Info);
+		user_info.append(username+" !");
 	}
 
 

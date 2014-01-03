@@ -1,0 +1,63 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/LinearLayout_MyAccount"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/green"
+    android:orientation="vertical" >
+ 
+    
+    <TextView
+        android:id="@+id/textView_MyAcccount1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="17dp"
+        android:layout_marginLeft="15dp"
+        android:textColor="@color/blank"
+        android:textSize="30dp"
+        android:text="Bank information" />
+
+    
+     <TextView
+        android:id="@+id/textView_RIB"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="40dp"
+        android:layout_marginLeft="15dp"
+        android:text="Enter your RIB" />
+
+    <EditText
+        android:id="@+id/editText_crediCard"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:ems="10"
+        android:inputType="number" />
+
+  
+     <TextView
+        android:id="@+id/textView2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:layout_marginLeft="15dp"
+        android:text="Enter your credit card" />
+
+    <EditText
+        android:id="@+id/editText_bankRIB"
+         android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:ems="10"
+        android:inputType="number" />
+
+    <Button
+        android:id="@+id/button_AccountOK"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="46dp"
+        android:layout_gravity="right"
+        android:layout_marginRight="40dp"
+        android:onClick="onClick"
+        android:text="OK" />
+
+</LinearLayout>

@@ -8,10 +8,85 @@
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
     tools:context=".MyAccountActivity" >
-
-    <TextView
+    
+      <TextView
+        android:id="@+id/textView_MyAcccount"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/hello_world" />
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentTop="true"
+        android:text="My Account"
+        android:textColor="@color/blank"
+        android:textSize="30dp" />
+    
+
+    <Button
+        android:id="@+id/button_Transfer"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/button_Recharge"
+        android:layout_alignLeft="@+id/button_Balance"
+        android:layout_alignParentRight="true"
+        android:layout_marginBottom="22dp"
+        android:text="Transfer" />
+
+    <Button
+        android:id="@+id/button_Balance"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/button_Transfer"
+        android:layout_alignLeft="@+id/button_Historic"
+        android:layout_alignParentRight="true"
+        android:layout_marginBottom="26dp"
+        android:text="Balance" />
+
+    <Button
+        android:id="@+id/button_Historic"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/button_Balance"
+        android:layout_alignLeft="@+id/textView_MyAcccount"
+        android:layout_alignParentRight="true"
+        android:layout_marginBottom="27dp"
+        android:text="Historics" />
+
+    <Button
+        android:id="@+id/button_Settings"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/button_Recharge"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentRight="true"
+        android:text="Settings" />
+
+    <Button
+        android:id="@+id/button_Recharge"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/button_Settings"
+        android:layout_alignLeft="@+id/button_Transfer"
+        android:layout_alignParentRight="true"
+        android:layout_marginBottom="20dp"
+        android:text="Recharge" />
+
+    <TextView
+        android:id="@+id/textView_CreditCard_info"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBaseline="@+id/textView_BankRIB_info"
+        android:layout_alignBottom="@+id/textView_BankRIB_info"
+        android:layout_alignRight="@+id/button_Historic"
+        android:layout_marginRight="16dp"
+        android:text="CreditCard: " />
+
+    <TextView
+        android:id="@+id/textView_BankRIB_info"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/textView_MyAcccount"
+        android:layout_below="@+id/textView_MyAcccount"
+        android:layout_marginLeft="14dp"
+        android:layout_marginTop="19dp"
+        android:text="Bank RIB: " />
 
 </RelativeLayout>

@@ -11,13 +11,14 @@
     tools:context=".MainActivity" >
 
     <TextView
-        android:id="@+id/textView1"
+        android:id="@+id/textView_User_Info"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
         android:layout_alignParentRight="true"
         android:layout_alignParentTop="true"
-        android:text="Dispay the account basic settings (name, solde, dates)" />
+        android:textSize="20dp"
+        android:text="Hi " />
 
     <ImageButton
         android:id="@+id/imageButton_send"
@@ -42,7 +43,7 @@
         android:id="@+id/button_Send"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/textView1"
+        android:layout_below="@+id/textView_User_Info"
         android:layout_marginTop="18dp"
         android:layout_toRightOf="@+id/button_Jackpot"
         android:onClick="onClick"
@@ -53,7 +54,7 @@
         android:layout_width="50sp"
         android:layout_height="50sp"
         android:layout_alignBottom="@+id/button_Beg"
-        android:layout_alignLeft="@+id/textView1"
+        android:layout_alignLeft="@+id/textView_User_Info"
         android:layout_marginLeft="19dp"
         android:background="@drawable/ic_money_beg" />
 
@@ -61,7 +62,7 @@
         android:id="@+id/button_Jackpot"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignLeft="@+id/textView1"
+        android:layout_alignLeft="@+id/textView_User_Info"
         android:layout_centerVertical="true"
         android:onClick="onClick"
         android:text="@string/button_Jackpot" />

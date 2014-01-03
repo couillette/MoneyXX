@@ -5,7 +5,9 @@ import java.util.List;
 import com.entity.UserAccount;
 import com.entity.UserRegistered;
 import com.server.BaseActivity;
+import com.server.PhoneData;
 import com.server.SendEmailAsyncTask;
+import com.server.StackmobQuery;
 import com.stackmob.android.sdk.common.StackMobAndroid;
 import com.stackmob.sdk.api.StackMobQuery;
 import com.stackmob.sdk.callback.StackMobModelCallback;
@@ -36,8 +38,9 @@ public class Sign_upActivity extends BaseActivity {
 	String pwd;
 	String phone;
 	
-	Boolean query;
-	Boolean exist;
+	StackmobQuery stQuery;
+	PhoneData phoneData;
+	
 
 			
 	@Override
@@ -47,6 +50,8 @@ public class Sign_upActivity extends BaseActivity {
 		
 		//display this activity at first launch only
 		loadPrefs();
+		
+		stQuery = new StackmobQuery();
 		
 
 	}
@@ -68,7 +73,7 @@ public class Sign_upActivity extends BaseActivity {
 				
 				if (isValidEmail(email)) {
 					
-					if(!checkIfUsernameExist()){
+					if(!stQuery.checkIfUsernameExist(usernameval)){
 						// Store User Information on Stackmob
 						UserRegistered user = new UserRegistered(usernameval, pwd, email, phone);
 						user.save();
@@ -84,11 +89,12 @@ public class Sign_upActivity extends BaseActivity {
 						
 						// Store settings on the application data
 						// this will skip this activity at next start
-						savePrefs("SINGUP", true);
-						// this permit to save username to retrieve it from
-						// stackmod
-						savePrefs("USERNAME", usernameval);
-						savePrefs("EMAIL", email);
+						phoneData = new PhoneData();
+						phoneData.savePrefs(this, "SINGUP", true);
+//						phoneData.savePrefs("SINGUP", true);
+						// this permit to save username to retrieve it from stackmod
+						phoneData.savePrefs(this, "USERNAME", usernameval);
+						phoneData.savePrefs(this, "EMAIL", email);
 						
 						//StackMobCallbacks come back on a different thread
 						runOnUiThread(new Runnable() {	
@@ -181,6 +187,20 @@ public class Sign_upActivity extends BaseActivity {
 		}
 
 	}
+	
+	
+	private void loadPrefs(){
+		SharedPreferences pref = PreferenceManager.getDefaultSharedPreferences(this);
+		boolean signupIsAlreadyDone = pref.getBoolean("SINGUP", false);
+		
+		// Sign_up activity should be display only at the first time. For this we need to store preference
+		if(signupIsAlreadyDone){
+			Intent intent = new Intent(Sign_upActivity.this, MainActivity.class);
+			startActivity(intent);
+			finish();
+		}
+	}
+	
 
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
@@ -191,34 +211,7 @@ public class Sign_upActivity extends BaseActivity {
 	
 
 	
-	public Boolean checkIfUsernameExist(){
-		 exist = false;
-		 query = false;
-
-		 // "while" because stackmob query are asynchronous
-		 while(!query){
-		UserRegistered.query(
-				UserRegistered.class, 
-				new StackMobQuery().fieldIsEqualTo("username", usernameval.trim()),
-				new StackMobQueryCallback<UserRegistered>() {
-
-					@Override
-					public void failure(StackMobException e) {
-						query=true;
-					}
-
-					@Override
-					public void success(List<UserRegistered> user) {
-						if(!user.isEmpty()){
-							exist = true;
-						}
-						query=true;
-					}
-				});
-		 }
-		 return exist;
-		
-	}
+	
 	
 	
 	public void appendTextDifSize(TextView tv, String text, float size){
@@ -252,32 +245,6 @@ public class Sign_upActivity extends BaseActivity {
 	
 	
 	
-	private void loadPrefs(){
-		SharedPreferences pref = PreferenceManager.getDefaultSharedPreferences(this);
-		boolean signupIsAlreadyDone = pref.getBoolean("SINGUP", false);
-		String username = pref.getString("USERNAME", null);
-		
-		// Sign_up activity should be display only at the first time. For this we need to store preference
-		if(signupIsAlreadyDone){
-			Intent intent = new Intent(Sign_upActivity.this, MainActivity.class);
-			startActivity(intent);
-			finish();
-		}
-	}
-	
-	
-	private void savePrefs(String key, boolean value){
-		SharedPreferences pref = PreferenceManager.getDefaultSharedPreferences(this);
-		Editor edit = pref.edit();
-		edit.putBoolean(key, value);
-		edit.apply();
-	}
-	
-	private void savePrefs(String key, String value){
-		SharedPreferences pref = PreferenceManager.getDefaultSharedPreferences(this);
-		Editor edit = pref.edit();
-		edit.putString(key, value);
-		edit.apply();
-	}
+
 
 }

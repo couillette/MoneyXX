@@ -10,6 +10,7 @@ import com.entity.UserRegistered;
 import com.moneyxx.R;
 import com.server.BaseActivity;
 import com.server.SendEmailAsyncTask;
+import com.server.StackmobQuery;
 import com.stackmob.android.sdk.common.StackMobAndroid;
 import com.stackmob.sdk.api.StackMobQuery;
 import com.stackmob.sdk.api.StackMobQueryField;
@@ -39,8 +40,9 @@ public class SendBegActivity extends BaseActivity {
 
 	// Read local contact
 	private ArrayList<Map<String, String>> contactList;
-//	private SimpleAdapter contactAdapter;
-//	private AutoCompleteTextView TxtView_AutoComp_TO;
+	
+	// Query on stackmob
+	StackmobQuery stQuery;
 	
 	//Selected contact
 	private String[] contactData = new String[] { "Name", "Phone", "Email" };
@@ -65,13 +67,13 @@ public class SendBegActivity extends BaseActivity {
 //		thisUserName = query username in preferences;
 		
 //		UserAccount account = new UserAccount("123456789", "123456789", "123456789", "0");
-		UserAccount account = new UserAccount("1", "123456789", "123456789", "0");
-		account.setID("1111222");
-		account.save();
-
-		UserRegistered u = new UserRegistered("sergelefou", "qsdf", "serge@hotmail.fr", "0648765342");
-		u.setUser_account(account);
-		u.save();
+//		UserAccount account = new UserAccount("1", "123456789", "123456789", "0");
+//		account.setID("1111222");
+//		account.save();
+//
+//		UserRegistered u = new UserRegistered("sergelefou", "qsdf", "serge@hotmail.fr", "0648765342");
+//		u.setUser_account(account);
+//		u.save();
 		
 		
 
@@ -104,9 +106,22 @@ public class SendBegActivity extends BaseActivity {
 			
 			final String amount = ((EditText) findViewById(R.id.editText_AmountOfMoney)).getText().toString();
 
-			// checkIfUserIsRegistered();
-			// this query was called onItemClickListener because it is asynchronous, which is quicker.
+			// query on stackmob datastore to check if user are registered or not
+			// call onItemClickListener because it is asynchronous, which enhance speed.
+			// put userIsRegisterd to true or false.
+			stQuery = new StackmobQuery();
+			userIsRegisterd = stQuery.checkIfUserIsRegisteredByMailOrPhone(contactData[1], contactData[2]);
+			
+				if (userIsRegisterd) {
+					alertDialog_text = "\n\nGreat! This person is kown and have a MoneyXX account.";
+				} else {
+					alertDialog_text = "\n\nWARNING : this person doesn't have any MoneyXX Account"
+							+ "\n- 'OK' and we will credit a temporary account based on the information "
+							+ "you gave and send him a message to register to MoneyXX"
+							+ "\n- 'NO' if you are not sure";
+				}
 
+			
 			new AlertDialog.Builder(this)
 			.setTitle("Warning")
 			.setMessage("You are going to send "+amount+" $ to :\n" +
@@ -128,16 +143,34 @@ public class SendBegActivity extends BaseActivity {
 						new SendEmailAsyncTask(mailAddressR, subR, messageR).execute();
 					
 						//send message (mail or sms) e to sender
+						//change contactData[2] with loadprefs.
 						String[] mailAddressS = {contactData[2].trim()};
 						String subS = "money sent";
 						String messageS = "you sent "+amount+"$ to "+contactData[0].trim()+
 							" and your account was debited";
 						new SendEmailAsyncTask(mailAddressS, subS, messageS).execute();
-//						
+						
 					} else if ( !userIsRegisterd ) {
-//						
-//						
-//						
+						
+						//create an account!!!
+						//credit receiver account
+//						//debit sender account
+						
+						//send message (mail or sms) to receiver
+						String[] mailAddressR = {contactData[2].trim()};
+						String subR = "money earned";
+						String messageR = "you just receive "+amount+"$ from "+thisUserName+
+							" and your account was credited";
+						new SendEmailAsyncTask(mailAddressR, subR, messageR).execute();
+					
+						//send message (mail or sms) e to sender
+						//change contactData[2] with loadprefs.
+						String[] mailAddressS = {contactData[2].trim()};
+						String subS = "money sent";
+						String messageS = "you sent "+amount+"$ to "+contactData[0].trim()+
+							" and your account was debited";
+						new SendEmailAsyncTask(mailAddressS, subS, messageS).execute();
+
 					}
 				}
 			})
@@ -181,46 +214,46 @@ public class SendBegActivity extends BaseActivity {
 	
 	
 	
-	public void checkIfUserIsRegistered(){
-		 userIsRegisterd = false;
-		 
-		 //to make query on phoneNumber we had to change phone attribute in UserRegistered
-		 //into String field. because you have things like "+33" or "("... in android field numbers
-		 String phnum = contactData[1].replaceAll("[+()-]", "").replace(" ", "").trim();
-		 String mail = contactData[2].trim();
-		 
-		 StackMobQuery checkMail = new StackMobQuery().fieldIsEqualTo("email", mail);
-		 StackMobQuery checkPhone = new StackMobQuery().fieldIsEqualTo("phone", phnum);
-		
-		// while because the query is asynchronous and we need to wait the result
-		UserRegistered.query(
-				UserRegistered.class, 
-				new StackMobQuery().fieldIsEqualTo("phone", phnum).or(checkMail),
-				new StackMobQueryCallback<UserRegistered>() {
-
-					@Override
-					public void failure(StackMobException e) {
-						alertDialog_text = "\n\nWARNING : this person doesn't have any MoneyXX Account\n" +
-								"Clik on OK and we will send him a message to register and credit a temporary account based" +
-								" on the information you gave.";
-					}
-
-					@Override
-					public void success(List<UserRegistered> user) {
-						if(!user.isEmpty()){
-							alertDialog_text = "\n\nGreat! This person is kown and have a MoneyXX account.";
-							userIsRegisterd = true;
-						} else {
-							alertDialog_text = "\n\nWARNING : this person doesn't have any MoneyXX Account" +
-									"\n- 'OK' and we will credit a temporary account based on the information " +
-									"you gave and send him a message to register to MoneyXX"+
-									"\n- 'NO' if you are not sure";
-							userIsRegisterd = false;
-						}
-					}
-				});
-		
-	}
+//	public void checkIfUserIsRegisteredByMailOrPhone(){
+//		 userIsRegisterd = false;
+//		 
+//		 //to make query on phoneNumber we had to change phone attribute in UserRegistered
+//		 //into String field. because you have things like "+33" or "("... in android field numbers
+//		 String phnum = contactData[1].replaceAll("[+()-]", "").replace(" ", "").trim();
+//		 String mail = contactData[2].trim();
+//		 
+//		 StackMobQuery checkMail = new StackMobQuery().fieldIsEqualTo("email", mail);
+//		 StackMobQuery checkPhone = new StackMobQuery().fieldIsEqualTo("phone", phnum);
+//		
+//		// while because the query is asynchronous and we need to wait the result
+//		UserRegistered.query(
+//				UserRegistered.class, 
+//				new StackMobQuery().fieldIsEqualTo("phone", phnum).or(checkMail),
+//				new StackMobQueryCallback<UserRegistered>() {
+//
+//					@Override
+//					public void failure(StackMobException e) {
+//						alertDialog_text = "\n\nWARNING : this person doesn't have any MoneyXX Account\n" +
+//								"Clik on OK and we will send him a message to register and credit a temporary account based" +
+//								" on the information you gave.";
+//					}
+//
+//					@Override
+//					public void success(List<UserRegistered> user) {
+//						if(!user.isEmpty()){
+//							alertDialog_text = "\n\nGreat! This person is kown and have a MoneyXX account.";
+//							userIsRegisterd = true;
+//						} else {
+//							alertDialog_text = "\n\nWARNING : this person doesn't have any MoneyXX Account" +
+//									"\n- 'OK' and we will credit a temporary account based on the information " +
+//									"you gave and send him a message to register to MoneyXX"+
+//									"\n- 'NO' if you are not sure";
+//							userIsRegisterd = false;
+//						}
+//					}
+//				});
+//		
+//	}
 	
 	
 	public void creditAccount(){
@@ -454,11 +487,6 @@ public class SendBegActivity extends BaseActivity {
 				contactData[2] = em;
 
 				TxtView_AutoComp_TO.setText("" + name);
-				
-				// query on stackmob datastore to check if user are registered or not
-				// call onItemClickListener because it is asynchronous, which enhance speed.
-				// put userIsRegisterd to true or false.
-				checkIfUserIsRegistered();
 			}
 		});
 		TxtView_AutoComp_TO.setAdapter(contactAdapter);
