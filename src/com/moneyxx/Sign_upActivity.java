@@ -4,6 +4,7 @@ import java.util.List;
 
 import com.entity.UserAccount;
 import com.entity.UserRegistered;
+import com.moneyxx.R;
 import com.server.BaseActivity;
 import com.server.PhoneData;
 import com.server.SendEmailAsyncTask;

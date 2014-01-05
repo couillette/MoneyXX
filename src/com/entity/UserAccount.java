@@ -19,6 +19,12 @@ public class UserAccount extends StackMobModel{
 		this.setID(id);
 	}
 	
+	public UserAccount(String bank_RIB, String creditCard){
+		super(UserAccount.class);
+		this.bankRIB = bank_RIB.trim();
+		this.creditCard = creditCard.trim();
+	}
+	
 	public UserAccount(String bank_RIB, String creditCard, String solde){
 		super(UserAccount.class);
 		this.bankRIB = bank_RIB.trim();

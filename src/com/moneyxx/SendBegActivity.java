@@ -56,6 +56,7 @@ public class SendBegActivity extends BaseActivity {
 	
 	Boolean userIsRegisterd;
 	String thisUserName;
+	String thisUserEmail;
 	String bankRIB;
 	String creditCard;
 	
@@ -154,7 +155,7 @@ public class SendBegActivity extends BaseActivity {
 					
 						//send message (mail or sms) to receiver
 						String[] mailAddressR = {contactData[2].trim()};
-						String subR = "money earned";
+						String subR = "Earn Money";
 						// add message from sender fill in the layout
 						String m = ((EditText)findViewById(R.id.editText_message)).getText().toString();
 						String messageR = "you just receive "+amount+"$ from "+thisUserName+
@@ -167,6 +168,12 @@ public class SendBegActivity extends BaseActivity {
 						String messageS = "you sent "+amount+"$ to "+contactData[0].trim()+
 							" and your account was debited";
 						new SendEmailAsyncTask(mailAddressS, subS, messageS).execute();
+						
+						//confirmation display on MoneyXX
+						Builder confirmation = new AlertDialog.Builder(SendBegActivity.this);
+						confirmation.setTitle("Confirmaation");
+						confirmation.setMessage("Successfull transaction !" +
+								"/nYou and your contact will be notified by email");
 						
 					} 
 //						else if ( !userIsRegisterd ) {
@@ -205,6 +212,9 @@ public class SendBegActivity extends BaseActivity {
 		break;
 		
 		//if user click on "Beg Money"
+		//1st version will just send an email and ask the receiver to send the amount via MoneyXX
+		//2nd version will fill a table which be displayed at launch before MainActivity if it is
+		//not empty.(table on stackmob and table layout)
 		case  R.id.button_BegRequest:
 			
 			Builder beg_message = new AlertDialog.Builder(this);
@@ -219,24 +229,27 @@ public class SendBegActivity extends BaseActivity {
 						
 						//send message (mail or sms) to receiver
 						String[] mailAddressR = {contactData[2].trim()};
-						String subR = "money earned";
+						String subR = "Ask Money";
 						// add message from sender fill in the layout
 						String m = ((EditText)findViewById(R.id.editText_message)).getText().toString();
-						String messageR = thisUserName+" is beging you "+amount+"$ from"
-								+" We need your authorization to do the transaction. You have to "+
-								"go on MoneyXX to accepte or refuse/n/n"+m;
+						String messageR = thisUserName+" is beging you "+amount+"$"
+								+" We need your authorization to do the transaction."+
+								"/n/nStart MoneyXX, go to Send, enter the due amount and email: "
+								+thisUserEmail.trim()+", or refuse the transaction./n/n"+m;
 						new SendEmailAsyncTask(mailAddressR, subR, messageR).execute();
 					
 						//send message (mail or sms) to sender
 						String[] mailAddressS = {thisUserName.trim()};
-						String subS = "money sent";
-						String messageS = "you sent "+amount+"$ to "+contactData[0].trim()+
-							" and your account was debited";
+						String subS = "you beg Money";
+						String messageS = "you beg "+amount+"$ to "+contactData[0].trim()+
+							"/n/n We send him a message to make the transaction on MoneyXX";
 						new SendEmailAsyncTask(mailAddressS, subS, messageS).execute();
 						
-						// il faut créer un tableau qui recense toutes les demandes
-						// et ajouter une ligne à ce tableau à chaque new demande
-						// enregistrer les transactions dans la bdd
+						//confirmation display on MoneyXX
+						Builder confirmation = new AlertDialog.Builder(SendBegActivity.this);
+						confirmation.setTitle("Confirmaation");
+						confirmation.setMessage("Successfull transaction !" +
+								"/nYou and your contact will be notified by email");
 						
 					} 
 //						else if ( !userIsRegisterd ) {
@@ -583,6 +596,7 @@ public class SendBegActivity extends BaseActivity {
 				TxtView_AutoComp_TO.setText("" + name);
 			}
 		});
+		TxtView_AutoComp_TO.setThreshold(1);
 		TxtView_AutoComp_TO.setAdapter(contactAdapter);
 
 	}
@@ -597,6 +611,7 @@ public class SendBegActivity extends BaseActivity {
 			bankRIB = pref.getString("BANKRIB", null);
 			creditCard = pref.getString("CREDITCARD", null);
 			thisUserName = pref.getString("USERNAME", null);
+			thisUserEmail = pref.getString("EMAIL", null);
 			
 		}else{
 			Builder build = new AlertDialog.Builder(this);

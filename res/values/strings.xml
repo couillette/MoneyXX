@@ -8,7 +8,6 @@
     <color name="green">#318480</color>
     <color name="blank">#FFFFFF</color>
     <color name="pastelGreen">#d7eaca</color>
-    
 
     <string name="button_Wallet">Wallet</string>
     <string name="button_Jackpot">Jackpot</string>
@@ -22,5 +21,12 @@
     <string name="title_activity_my_account">MyAccountActivity</string>
     <string name="title_activity_sign_up">Sign_upActivity</string>
     <string name="error_signup">You need to complete the required field to continue</string>
+    <string name="title_activity_settings">SettingsActivity</string>
+    <string name="title_activity_settings_tab">SettingsTabActivity</string>
+    <string name="title_section1">Section 1</string>
+    <string name="title_section2">Section 2</string>
+    <string name="title_section3">Section 3</string>
+    <string name="title_activity_bank_settings_fragment">BankSettingsFragment</string>
+    <string name="title_activity_transfer_recharge">TransferRechargeActivity</string>
 
 </resources>
