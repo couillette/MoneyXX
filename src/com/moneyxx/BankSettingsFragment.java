@@ -24,6 +24,8 @@ import android.widget.TextView;
 public class BankSettingsFragment extends Fragment {
 	String bankRIB;
 	String creditCard;
+	String accountID;
+	String username;
 	
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -47,10 +49,8 @@ public class BankSettingsFragment extends Fragment {
 				
 				//set relationship between UserRegisterd and Account on stackmob
 				SharedPreferences pref = PreferenceManager.getDefaultSharedPreferences(getActivity());
-				String username = pref.getString("USERNAME", null);
-				
-				StackmobQuery stQuery = new StackmobQuery();
-				String accountID = stQuery.fetchUserAccountID(username.trim());
+				username = pref.getString("USERNAME", null);
+				accountID = pref.getString("ACCOUNTID", null);
 				
 				UserAccount account = new UserAccount();
 				account.setID(accountID);

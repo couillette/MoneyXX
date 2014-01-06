@@ -93,6 +93,7 @@
         android:layout_height="wrap_content"
         android:layout_alignBottom="@+id/textView_Wallet_Balance"
         android:layout_alignRight="@+id/textView_Wallet_Username"
+        android:onClick="onClick"
         android:src="@drawable/ic_refresh" />
 
 </RelativeLayout>

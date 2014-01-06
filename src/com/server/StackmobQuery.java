@@ -64,14 +64,10 @@ public class StackmobQuery {
 		// UserRegistered
 		// into String field. because you have things like "+33" or "("... in
 		// android field numbers
-		String phnum = phoneNumber.replaceAll("[+()-]", "").replace(" ", "")
-				.trim();
+		String phnum = phoneNumber.replaceAll("[+()-]", "").replace(" ", "").trim();
 		String mail = email.trim();
-
-		StackMobQuery checkMail = new StackMobQuery().fieldIsEqualTo("email",
-				mail);
-		StackMobQuery checkPhone = new StackMobQuery().fieldIsEqualTo("phone",
-				phnum);
+		StackMobQuery checkMail = new StackMobQuery().fieldIsEqualTo("email",mail);
+		StackMobQuery checkPhone = new StackMobQuery().fieldIsEqualTo("phone",phnum);
 
 		// while because the query is asynchronous and we need to wait the
 		// result
@@ -110,18 +106,12 @@ public class StackmobQuery {
 			UserRegistered.query(UserRegistered.class, new StackMobQuery()
 					.fieldIsEqualTo("userregistered_id", usernamev.trim()),
 					new StackMobQueryCallback<UserRegistered>() {
-
-						@Override
-						public void failure(StackMobException e) {
-							query = true;
-						}
-
-						@Override
-						public void success(List<UserRegistered> userA) {
-							if (!userA.isEmpty()) {
-								userAccountID = userA.get(0).getUser_account()
-										.getID().toString().trim();
-//								USERLIST = userA;
+				
+						public void failure(StackMobException e) {}
+						
+						public void success(List<UserRegistered> userAsolde) {
+							if (!userAsolde.isEmpty()) {
+								userAccountID = userAsolde.get(0).getUser_account().getID().trim();
 							}
 							query = true;
 						}
@@ -139,16 +129,12 @@ public class StackmobQuery {
 			UserAccount.query(UserAccount.class, new StackMobQuery()
 					.fieldIsEqualTo("useraccount_id", accountID.trim()),
 					new StackMobQueryCallback<UserAccount>() {
-
-						@Override
-						public void failure(StackMobException e) {
-							query = true;
-						}
-
-						@Override
+				
+						public void failure(StackMobException e) {}
+						
 						public void success(List<UserAccount> userAcc) {
-								userAccountSolde = Integer.parseInt(userAcc.get(0).getSolde().toString());
-								
+								userAccountSolde = Integer.parseInt(userAcc.get(0).getSolde().trim());
+								query = true;
 						}
 					});
 		}
@@ -197,6 +183,32 @@ public class StackmobQuery {
 					}
 				});
 		}
+	}
+	
+	
+	public List<UserAccount> fetchSoldeByBankRIBandCreditCard(String bankrib_solde, String creditcard_solde) {
+		query = false;
+//		userAccountList.clear();
+		
+//		StackMobQuery checkBankRIB = new StackMobQuery().fieldIsEqualTo("bankrib",bankrib_solde.trim());
+		StackMobQuery checkCreditCard = new StackMobQuery().fieldIsEqualTo("creditcard",creditcard_solde.trim());
+		
+		while (!query) {
+			UserAccount.query(UserAccount.class, new StackMobQuery()
+			.fieldIsEqualTo("bankrib", bankrib_solde.trim()).and(checkCreditCard),
+			new StackMobQueryCallback<UserAccount>() {
+				
+						public void failure(StackMobException e) {}
+						
+						public void success(List<UserAccount> userAS) {
+							if (!userAS.isEmpty()){
+								userAccountList = userAS;
+							}
+							query = true;
+						}
+					});
+		}
+		return userAccountList;
 	}
 	
 

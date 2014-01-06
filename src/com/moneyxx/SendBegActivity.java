@@ -9,6 +9,7 @@ import com.entity.UserAccount;
 import com.entity.UserRegistered;
 import com.moneyxx.R;
 import com.server.BaseActivity;
+import com.server.PhoneData;
 import com.server.SendEmailAsyncTask;
 import com.server.StackmobQuery;
 import com.stackmob.android.sdk.common.StackMobAndroid;
@@ -57,6 +58,8 @@ public class SendBegActivity extends BaseActivity {
 	Boolean userIsRegisterd;
 	String thisUserName;
 	String thisUserEmail;
+	String thisUserAccountID;
+	String thisUserAccountSolde;
 	String bankRIB;
 	String creditCard;
 	
@@ -151,7 +154,8 @@ public class SendBegActivity extends BaseActivity {
 					if ( userIsRegisterd ){
 						//credit receiver account
 						//debit sender account
-						creditDebit(stQuery.getUsername(), thisUserName, amount);
+						//and check that the transaction succeed
+						if ( creditDebit(thisUserName, stQuery.getUsername(), amount) ) {
 					
 						//send message (mail or sms) to receiver
 						String[] mailAddressR = {contactData[2].trim()};
@@ -174,6 +178,7 @@ public class SendBegActivity extends BaseActivity {
 						confirmation.setTitle("Confirmaation");
 						confirmation.setMessage("Successfull transaction !" +
 								"/nYou and your contact will be notified by email");
+						}
 						
 					} 
 //						else if ( !userIsRegisterd ) {
@@ -197,7 +202,7 @@ public class SendBegActivity extends BaseActivity {
 //						new SendEmailAsyncTask(mailAddressS, subS, messageS).execute();
 //
 //					}
-				}
+					}
 			});
 			send_message.setNegativeButton("NO", new DialogInterface.OnClickListener() {
 				@Override
@@ -335,39 +340,51 @@ public class SendBegActivity extends BaseActivity {
 //	}
 	
 	
-	public void creditDebit(String sender, String receiver, String amount) {
-		// debit the sender account
-		StackmobQuery stQuery = new StackmobQuery();
-		String accountIDs = stQuery.fetchUserAccountID(sender.trim());
-
-		StackmobQuery stQuery1 = new StackmobQuery();
-		int solde0 = stQuery1.fetchUserAccountSolde(accountIDs);
-		int solde1 = Integer.parseInt(amount.trim());
-
-		UserAccount us = new UserAccount();
-		us.setID(accountIDs);
+	public Boolean creditDebit(String sender, String receiver, String amount) {
+		boolean done = false; 
 		
-		// debit "-"
-		int soldef = solde0 - solde1;
-		us.setSolde("" + soldef);
-		us.save();
-		
-		
+		while(!done){
 		// credit the receiver account
 		StackmobQuery stQuery2 = new StackmobQuery();
-		String accountIDr = stQuery2.fetchUserAccountID(receiver.trim());
+		String accountIDur = stQuery2.fetchUserAccountID(receiver.trim());
 
 		StackmobQuery stQuery3 = new StackmobQuery();
-		int solde00 = stQuery3.fetchUserAccountSolde(accountIDr);
-		int solde11 = Integer.parseInt(amount.trim());
+		int solde00 = stQuery3.fetchUserAccountSolde(accountIDur);
+//		int solde00 = 0;
+		// credit "+"
+		int solde11 = solde00 + Integer.parseInt(amount.trim());
 
 		UserAccount ur = new UserAccount();
-		ur.setID(accountIDr);
-		
-		// credit "+"
-		int soldeff = solde00 + solde11;
-		ur.setSolde("" + soldeff);
+		ur.setID(accountIDur.trim());
+		ur.setSolde("" + solde11);
 		ur.save();
+		
+		done=true;
+		}
+		done=false;
+		
+		while(!done){
+		// debit the sender account
+		StackmobQuery stQuery1 = new StackmobQuery();
+		int solde0 = Integer.parseInt(thisUserAccountSolde.trim());
+		// debit "-"
+		int solde1 = solde0 - Integer.parseInt(amount.trim());
+
+		UserAccount us = new UserAccount();
+		us.setID(thisUserAccountID);
+		us.setSolde("" + solde1);
+		us.save();
+		
+		PhoneData p = new PhoneData();
+		p.savePrefs(this, "SOLDE", ""+solde1);
+		
+		
+		
+		done = true;
+		}
+		
+		return done;
+		
 	}
 	
 	
@@ -612,6 +629,8 @@ public class SendBegActivity extends BaseActivity {
 			creditCard = pref.getString("CREDITCARD", null);
 			thisUserName = pref.getString("USERNAME", null);
 			thisUserEmail = pref.getString("EMAIL", null);
+			thisUserAccountID = pref.getString("ACCOUNTID", null);
+			thisUserAccountSolde = pref.getString("SOLDE", null);
 			
 		}else{
 			Builder build = new AlertDialog.Builder(this);
