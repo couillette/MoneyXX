@@ -15,7 +15,7 @@ import android.widget.TextView;
 
 
 public class MainActivity extends Activity {
-//blop2	
+//blop2	jIB
 	Intent myIntent;
 	
 	private String username;
