@@ -19,13 +19,11 @@ public class JackpotActivity extends Activity {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_jackpot);
-		
-		//Enable the callBack button
+
+		// Enable the callBack button
 		getActionBar().setDisplayHomeAsUpEnabled(true);
-		
+
 	}
-	
-	
 
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
@@ -33,11 +31,10 @@ public class JackpotActivity extends Activity {
 		getMenuInflater().inflate(R.menu.jackpot, menu);
 		return true;
 	}
-	
-	
-	//Set the call back to return to previous activity
+
+	// Set the call back to return to previous activity
 	@Override
-	public boolean onOptionsItemSelected(MenuItem item){
+	public boolean onOptionsItemSelected(MenuItem item) {
 		switch (item.getItemId()) {
 		case android.R.id.home:
 			NavUtils.navigateUpFromSameTask(this);
