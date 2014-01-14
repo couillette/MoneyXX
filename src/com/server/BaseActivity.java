@@ -6,21 +6,22 @@ import android.os.Bundle;
 import com.stackmob.android.sdk.common.StackMobAndroid;
 import com.stackmob.sdk.api.StackMob;
 
-
 /**
  * BaseActivity to initialize StackMob
- *
- * Why do we need to have this?
- * We need this because StackMob will not be initialized once your app is wiped from the memory.
- * By extending this `BaseActivity`, StackMob will always be guaranteed to get initialized
+ * 
+ * Why do we need to have this? We need this because StackMob will not be
+ * initialized once your app is wiped from the memory. By extending this
+ * `BaseActivity`, StackMob will always be guaranteed to get initialized
  */
 public class BaseActivity extends Activity {
-  @Override
-  protected void onCreate(Bundle savedInstanceState) {
-    super.onCreate(savedInstanceState);
-    // initialize StackMob --- Change YOUR_PUBLIC_KEY with your app's public key
-    if (StackMob.getStackMob() == null) {
-    	StackMobAndroid.init(getApplicationContext(), 0, "2e24fee1-d4e5-4465-85cd-c7623de7cf71");
-    }
-  }
+	@Override
+	protected void onCreate(Bundle savedInstanceState) {
+		super.onCreate(savedInstanceState);
+		// initialize StackMob --- Change YOUR_PUBLIC_KEY with your app's public
+		// key
+		if (StackMob.getStackMob() == null) {
+			StackMobAndroid.init(getApplicationContext(), 0,
+					"2e24fee1-d4e5-4465-85cd-c7623de7cf71");
+		}
+	}
 }

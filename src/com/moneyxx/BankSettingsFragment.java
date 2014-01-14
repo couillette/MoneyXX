@@ -24,23 +24,30 @@ import android.widget.TextView;
 public class BankSettingsFragment extends Fragment {
 	String bankRIB;
 	String creditCard;
+<<<<<<< HEAD
 	
+=======
+	String accountID;
+	String username;
+
+>>>>>>> 82a705e5cc7ded006539433bcf03489da27c2784
 	@Override
-	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-		final View rootView = inflater.inflate(R.layout.fragment_bank_settings,container, false);
-		
-		
-		
+	public View onCreateView(LayoutInflater inflater, ViewGroup container,
+			Bundle savedInstanceState) {
+		final View rootView = inflater.inflate(R.layout.fragment_bank_settings,
+				container, false);
+
 		// Display message
-		TextView settings = (TextView) rootView.findViewById(R.id.textView_Settings_bankInfo);
+		TextView settings = (TextView) rootView
+				.findViewById(R.id.textView_Settings_bankInfo);
 		String text = "\n\nChange your banking info and save these changes for your MoneyXX account.";
 		appendTextDifSize(settings, text, 0.5f);
-		
-		
-		
-		Button b = (Button) rootView.findViewById(R.id.button_Settings_BankSave);
+
+		Button b = (Button) rootView
+				.findViewById(R.id.button_Settings_BankSave);
 		b.setOnClickListener(new OnClickListener() {
 			public void onClick(View v) {
+<<<<<<< HEAD
 				
 				bankRIB = ((EditText) rootView.findViewById(R.id.editText_Settings_bankRIB)).getText().toString();
 				creditCard = ((EditText) rootView.findViewById(R.id.editText_Settings_creditCard)).getText().toString();
@@ -52,42 +59,59 @@ public class BankSettingsFragment extends Fragment {
 				StackmobQuery stQuery = new StackmobQuery();
 				String accountID = stQuery.fetchUserAccountID(username.trim());
 				
+=======
+
+				bankRIB = ((EditText) rootView
+						.findViewById(R.id.editText_Settings_bankRIB))
+						.getText().toString();
+				creditCard = ((EditText) rootView
+						.findViewById(R.id.editText_Settings_creditCard))
+						.getText().toString();
+
+				// set relationship between UserRegisterd and Account on
+				// stackmob
+				SharedPreferences pref = PreferenceManager
+						.getDefaultSharedPreferences(getActivity());
+				username = pref.getString("USERNAME", null);
+				accountID = pref.getString("ACCOUNTID", null);
+
+>>>>>>> 82a705e5cc7ded006539433bcf03489da27c2784
 				UserAccount account = new UserAccount();
 				account.setID(accountID);
 				account.setbankRIB(bankRIB.trim());
 				account.setCreditCard(creditCard.trim());
 				account.save();
-				
+
 				PhoneData phoneData = new PhoneData();
 				phoneData.savePrefs(getActivity(), "BANKRIB", bankRIB);
 				phoneData.savePrefs(getActivity(), "CREDITCARD", creditCard);
-				
+
 			}
 		});
 
 		return rootView;
 	}
-	
-	public void appendTextDifSize(TextView tv, String text, float size){
+
+	public void appendTextDifSize(TextView tv, String text, float size) {
 		int start = tv.getText().length();
-		
-		if(start>17){
+
+		if (start > 17) {
 			char[] charList = tv.getText().toString().toCharArray();
 			int i = 0;
-			while (charList[i] !='\n'){
-				i++; }
+			while (charList[i] != '\n') {
+				i++;
+			}
 			start = i;
 			CharSequence prevText = tv.getText().subSequence(0, i);
 			tv.setText(prevText);
 		}
-		
+
 		tv.append(text);
 		int end = tv.getText().length();
-			
+
 		Spannable span = (Spannable) tv.getText();
-		span.setSpan(new RelativeSizeSpan(size), start, end, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+		span.setSpan(new RelativeSizeSpan(size), start, end,
+				Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
 	}
-
-
 
 }
