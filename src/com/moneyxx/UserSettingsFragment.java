@@ -109,6 +109,26 @@ public class UserSettingsFragment extends Fragment {
 							+ "this is allowed in the test version ...blabla";
 					new SendEmailAsyncTask(mailAddress, sub, message).execute();
 					
+//					final UserAccount uss = new UserAccount();
+//					uss.setID(accountID);
+//					uss.fetch(new StackMobModelCallback() {
+//						public void failure(StackMobException arg0) {}
+//						public void success() {
+//							bankR = uss.getbankRIB();
+//							solde =  uss.getSolde();
+//							creditC = uss.getCreditCard();
+//						}
+//					});
+					
+//					StackmobQuery stQuery1 = new StackmobQuery();
+//					stQuery1.fetchUserAccountByID(accountID.trim());
+//					userAccountList = stQuery1.getUserAccountList();
+//					for(UserAccount userAcc : userAccountList){
+//						solde = userAcc.getSolde().trim();
+//						bankR =  userAcc.getbankRIB().trim();
+//						creditC =  userAcc.getCreditCard().trim();
+//					}
+					
 					//the query need to return userAccountList otherwise the query is empty
 					StackmobQuery stQuery1 = new StackmobQuery();
 					userAccountList = stQuery1.fetchUserAccountByID(accountID.trim());
@@ -123,10 +143,9 @@ public class UserSettingsFragment extends Fragment {
 					PhoneData phoneData = new PhoneData();
 					phoneData.savePrefs(getActivity(), "USERNAME", name);
 					phoneData.savePrefs(getActivity(), "EMAIL", email);
-					phoneData.savePrefs(getActivity(), "ACCOUNTID", accountID.trim());
 					phoneData.savePrefs(getActivity(), "BANKRIB", bankR);
 					phoneData.savePrefs(getActivity(), "CREDITCARD", creditC);
-					phoneData.savePrefs(getActivity(), "SOLDE", ""+solde);
+//					phoneData.savePrefs(getActivity(), "SOLDE", ""+solde);
 					
 					// Go to MainActivity
 					Intent intent = new Intent(getActivity(), MainActivity.class);

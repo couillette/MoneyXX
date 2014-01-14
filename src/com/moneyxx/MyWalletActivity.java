@@ -1,7 +1,5 @@
 package com.moneyxx;
 
-import java.util.List;
-
 import com.entity.UserAccount;
 import com.entity.UserRegistered;
 import com.moneyxx.R;
@@ -13,8 +11,6 @@ import com.server.StackmobQuery;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.app.Activity;
-import android.app.AlertDialog;
-import android.app.AlertDialog.Builder;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.support.v4.app.NavUtils;
@@ -35,16 +31,13 @@ public class MyWalletActivity extends Activity {
 	private String creditCard;
 	private String solde;
 	private String username;
-	private String accountID;
 	private PhoneData phoneData;
 	private TextView error_message;
 	
-	TextView bankRIB_TV;
-	TextView creditCard_TV;
-	TextView username_TV;
-	TextView balance_TV;
-	
 	Intent intent;
+	
+	// Query on stackmob
+	StackmobQuery stQuery;
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -71,10 +64,6 @@ public class MyWalletActivity extends Activity {
 				phoneData.savePrefs(this, "CREDITCARD", creditCard);
 				phoneData.savePrefs(this, "SOLDE", "0");
 				
-//				StackmobQuery stqq = new StackmobQuery();
-//				accountID = stqq.fetchUserAccountID(username);
-//				phoneData.savePrefs(this, "ACCOUNTID", accountID.trim());
-				
 				//set relationship between UserRegisterd and Account on stackmob
 				UserAccount account = new UserAccount(bankRIB, creditCard, "0");
 				account.save();
@@ -83,12 +72,8 @@ public class MyWalletActivity extends Activity {
 				usr.setUser_account(account);
 				usr.save();
 				
-				accountID = account.getID();
-				phoneData.savePrefs(this, "ACCOUNTID", accountID.trim());
-				
 				setContentView(R.layout.activity_my_wallet);
 				loadPrefs();
-				
 			}else {
 				// Display error message when required field are not complete
 				error_message = (TextView) findViewById(R.id.textView_Wallet1);
@@ -99,24 +84,8 @@ public class MyWalletActivity extends Activity {
 		break;
 		
 		case R.id.imageButton_wallet_refresh:
-			
-			StackmobQuery stQ = new StackmobQuery();
-			String accountIDD = stQ.fetchUserAccountID(username.trim());
-			StackmobQuery stQQ = new StackmobQuery();
-			List<UserAccount> usrList = stQQ.fetchUserAccountByID(accountIDD);
-			
-			bankRIB_TV.setText("Bank RIB: "+usrList.get(0).getbankRIB().trim());
-			creditCard_TV.setText("CreditCard: "+usrList.get(0).getCreditCard().trim());
-			balance_TV.setText("Balance: "+usrList.get(0).getSolde().trim()+"$");
-			
-			PhoneData ph = new PhoneData();
-			ph.savePrefs(this, "SOLDE", usrList.get(0).getSolde().trim());
-			
-		break;
-		
-		case R.id.button_Wallet_Historic:
-			intent = new Intent(MyWalletActivity.this, HistoricActivity.class);
-			MyWalletActivity.this.startActivity(intent);
+//			StackmobQuery stQuery = new StackmobQuery();
+//			stQuery.fetchAllUserRegistered();
 		break;
 		
 		case R.id.button_Wallet_Recharge:
@@ -144,18 +113,18 @@ public class MyWalletActivity extends Activity {
 			bankRIB = pref.getString("BANKRIB", null);
 			creditCard = pref.getString("CREDITCARD", null);
 			solde = pref.getString("SOLDE", null);
-			
+//			
 			if (!(bankRIB==null) && !(creditCard==null)) {
 				this.setContentView(R.layout.activity_my_wallet);
-
-				bankRIB_TV = (TextView) findViewById(R.id.textView_Wallet_BankRIB);
-				creditCard_TV = (TextView) findViewById(R.id.textView_Wallet_CreditCard);
-				username_TV = (TextView) findViewById(R.id.textView_Wallet_Username);
-				balance_TV = (TextView) findViewById(R.id.textView_Wallet_Balance);
-				bankRIB_TV.append(bankRIB);
-				creditCard_TV.append(creditCard);
-				username_TV.setText(username);
-				balance_TV.append("" + solde + "$");
+//
+				TextView bank_info = (TextView) findViewById(R.id.textView_Wallet_BankRIB);
+				TextView creditCard_info = (TextView) findViewById(R.id.textView_Wallet_CreditCard);
+				TextView userName = (TextView) findViewById(R.id.textView_Wallet_Username);
+				TextView balance = (TextView) findViewById(R.id.textView_Wallet_Balance);
+				bank_info.append(bankRIB);
+				creditCard_info.append(creditCard);
+				userName.setText(username);
+				balance.append("" + solde + "$");
 //				
 			} else {
 				this.setContentView(R.layout.activity_my_wallet1);

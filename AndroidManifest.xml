@@ -72,10 +72,6 @@
             android:name="com.moneyxx.TransferRechargeActivity"
             android:label="@string/title_activity_transfer_recharge" >
         </activity>
-        <activity
-            android:name="com.moneyxx.HistoricActivity"
-            android:label="@string/title_activity_historic" >
-        </activity>
     </application>
 
 </manifest>

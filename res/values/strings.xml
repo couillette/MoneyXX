@@ -28,6 +28,5 @@
     <string name="title_section3">Section 3</string>
     <string name="title_activity_bank_settings_fragment">BankSettingsFragment</string>
     <string name="title_activity_transfer_recharge">TransferRechargeActivity</string>
-    <string name="title_activity_historic">HistoricActivity</string>
 
 </resources>
