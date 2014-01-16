@@ -8,6 +8,7 @@ import com.server.StackmobQuery;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.app.Activity;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.support.v4.app.NavUtils;
 import android.view.Menu;
@@ -32,16 +33,38 @@ public class JackpotActivity extends Activity {
 		return true;
 	}
 
-	// Set the call back to return to previous activity
-	@Override
-	public boolean onOptionsItemSelected(MenuItem item) {
-		switch (item.getItemId()) {
-		case android.R.id.home:
-			NavUtils.navigateUpFromSameTask(this);
-			return true;
-		default:
-			return super.onOptionsItemSelected(item);
+	
+	//Set the call back to return to previous activity
+		@Override
+		public boolean onOptionsItemSelected(MenuItem item){
+			Intent myIntent ;
+			switch (item.getItemId()) {
+			case android.R.id.home:
+				NavUtils.navigateUpFromSameTask(this);
+				return true;
+			case R.id.action_money_beg:
+	            // action_money_beg
+	        	myIntent = new Intent(JackpotActivity.this, SendBegActivity.class);
+	        	JackpotActivity.this.startActivity(myIntent);
+	            return true;
+	        case R.id.action_money_send:
+	            // action_money_send
+	        	myIntent = new Intent(JackpotActivity.this, SendBegActivity.class);
+	        	JackpotActivity.this.startActivity(myIntent);
+	            return true;
+	        case R.id.action_jackpot:
+	            // action_jackpot
+	        	myIntent = new Intent(JackpotActivity.this, JackpotActivity.class);
+	        	JackpotActivity.this.startActivity(myIntent);
+	            return true;
+	        case R.id.action_wallet:
+	            // action_wallet
+	        	myIntent = new Intent(JackpotActivity.this, MyWalletActivity.class);
+	        	JackpotActivity.this.startActivity(myIntent);
+	            return true;
+			default:
+				return super.onOptionsItemSelected(item);
+			}
 		}
-	}
 
 }

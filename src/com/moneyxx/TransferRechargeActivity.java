@@ -9,6 +9,7 @@ import com.server.StackmobQuery;
 
 import android.os.Bundle;
 import android.preference.PreferenceManager;
+import android.support.v4.app.NavUtils;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.AlertDialog.Builder;
@@ -16,6 +17,7 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.EditText;
 
@@ -149,5 +151,39 @@ public class TransferRechargeActivity extends Activity {
 		PhoneData ph = new PhoneData();
 		ph.savePrefs(this, "SOLDE", ""+solde1);
 	}
+	
+	//Set the call back to return to previous activity
+	@Override
+	public boolean onOptionsItemSelected(MenuItem item){
+		Intent myIntent ;
+		switch (item.getItemId()) {
+		case android.R.id.home:
+			NavUtils.navigateUpFromSameTask(this);
+			return true;
+		case R.id.action_money_beg:
+            // action_money_beg
+        	myIntent = new Intent(TransferRechargeActivity.this, SendBegActivity.class);
+        	TransferRechargeActivity.this.startActivity(myIntent);
+            return true;
+        case R.id.action_money_send:
+            // action_money_send
+        	myIntent = new Intent(TransferRechargeActivity.this, SendBegActivity.class);
+        	TransferRechargeActivity.this.startActivity(myIntent);
+            return true;
+        case R.id.action_jackpot:
+            // action_jackpot
+        	myIntent = new Intent(TransferRechargeActivity.this, JackpotActivity.class);
+        	TransferRechargeActivity.this.startActivity(myIntent);
+            return true;
+        case R.id.action_wallet:
+            // action_wallet
+        	myIntent = new Intent(TransferRechargeActivity.this, MyWalletActivity.class);
+        	TransferRechargeActivity.this.startActivity(myIntent);
+            return true;
+		default:
+			return super.onOptionsItemSelected(item);
+		}
+	}
+	
 
 }
