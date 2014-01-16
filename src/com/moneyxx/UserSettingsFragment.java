@@ -104,6 +104,7 @@ public class UserSettingsFragment extends Fragment {
 		b.setOnClickListener(new OnClickListener() {
 			public void onClick(View v) {
 
+
 				// Send a confirmation mail
 				String[] mailAddress = { email.trim() };
 				String sub = "Successfull registration";
@@ -124,6 +125,7 @@ public class UserSettingsFragment extends Fragment {
 					solde = userAcc.getSolde().trim();
 					bankR = userAcc.getbankRIB().trim();
 					creditC = userAcc.getCreditCard().trim();
+
 				}
 
 				PhoneData phoneData = new PhoneData();

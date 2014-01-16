@@ -24,6 +24,7 @@ import android.widget.TextView;
 public class BankSettingsFragment extends Fragment {
 	String bankRIB;
 	String creditCard;
+
 	String accountID;
 	String username;
 
@@ -44,9 +45,8 @@ public class BankSettingsFragment extends Fragment {
 		b.setOnClickListener(new OnClickListener() {
 			public void onClick(View v) {
 
-				bankRIB = ((EditText) rootView
-						.findViewById(R.id.editText_Settings_bankRIB))
-						.getText().toString();
+
+				bankRIB = ((EditText) rootView.findViewById(R.id.editText_Settings_bankRIB)).getText().toString();
 				creditCard = ((EditText) rootView
 						.findViewById(R.id.editText_Settings_creditCard))
 						.getText().toString();

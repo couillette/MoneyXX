@@ -1,2 +1,8 @@
+<<<<<<< HEAD
 ﻿.classpath
 /bin
+=======
+bin/
+.classpath
+.project
+>>>>>>> branch 'master' of https://github.com/couillette/MoneyXX.git

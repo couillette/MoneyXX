@@ -13,8 +13,6 @@ import com.server.StackmobQuery;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.app.Activity;
-import android.app.AlertDialog;
-import android.app.AlertDialog.Builder;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.support.v4.app.NavUtils;
@@ -38,6 +36,7 @@ public class MyWalletActivity extends Activity {
 	private String accountID;
 	private PhoneData phoneData;
 	private TextView error_message;
+
 
 	TextView bankRIB_TV;
 	TextView creditCard_TV;
@@ -72,12 +71,12 @@ public class MyWalletActivity extends Activity {
 				phoneData.savePrefs(this, "CREDITCARD", creditCard);
 				phoneData.savePrefs(this, "SOLDE", "0");
 
+
 				// StackmobQuery stqq = new StackmobQuery();
 				// accountID = stqq.fetchUserAccountID(username);
 				// phoneData.savePrefs(this, "ACCOUNTID", accountID.trim());
 
-				// set relationship between UserRegisterd and Account on
-				// stackmob
+				// set relationship between UserRegisterd and Account on stackmob
 				UserAccount account = new UserAccount(bankRIB, creditCard, "0");
 				account.save();
 				UserRegistered usr = new UserRegistered();
@@ -138,6 +137,7 @@ public class MyWalletActivity extends Activity {
 		}
 
 	}
+
 
 	private void loadPrefs() {
 		SharedPreferences pref = PreferenceManager

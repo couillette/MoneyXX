@@ -65,6 +65,7 @@ public class StackmobQuery {
 		String phnum = phoneNumber.replaceAll("[+()-]", "").replace(" ", "")
 				.trim();
 		String mail = email.trim();
+
 		StackMobQuery checkMail = new StackMobQuery().fieldIsEqualTo("email",
 				mail);
 		StackMobQuery checkPhone = new StackMobQuery().fieldIsEqualTo("phone",
@@ -139,7 +140,6 @@ public class StackmobQuery {
 						public void success(List<UserAccount> userAcc) {
 							userAccountSolde = Integer.parseInt(userAcc.get(0)
 									.getSolde().trim());
-							query = true;
 						}
 					});
 		}
@@ -188,6 +188,7 @@ public class StackmobQuery {
 		}
 	}
 
+
 	public List<UserAccount> fetchSoldeByBankRIBandCreditCard(
 			String bankrib_solde, String creditcard_solde) {
 		query = false;
@@ -218,7 +219,7 @@ public class StackmobQuery {
 		}
 		return userAccountList;
 	}
-
+	
 	public List<UserAccount> getUserAccountList() {
 		return userAccountList;
 	}

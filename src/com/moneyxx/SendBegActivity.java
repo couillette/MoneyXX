@@ -58,10 +58,10 @@ public class SendBegActivity extends BaseActivity {
 	Boolean userIsRegisterd;
 	String thisUserName;
 	String thisUserEmail;
-	String thisUserAccountID;
-	String thisUserAccountSolde;
 	String bankRIB;
 	String creditCard;
+	String thisUserAccountID;
+	String thisUserAccountSolde;
 
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -122,6 +122,7 @@ public class SendBegActivity extends BaseActivity {
 			// enhance speed.
 			// put userIsRegisterd to true or false.
 			final StackmobQuery stQuery = new StackmobQuery();
+
 			userIsRegisterd = stQuery.checkByMailOrPhone(contactData[1],
 					contactData[2]);
 
@@ -446,7 +447,6 @@ public class SendBegActivity extends BaseActivity {
 		}
 
 		return done;
-
 	}
 
 	// allow to find by Name, phone number or email in all your local contacts
@@ -694,10 +694,12 @@ public class SendBegActivity extends BaseActivity {
 			creditCard = pref.getString("CREDITCARD", null);
 			thisUserName = pref.getString("USERNAME", null);
 			thisUserEmail = pref.getString("EMAIL", null);
+
 			thisUserAccountID = pref.getString("ACCOUNTID", null);
 			thisUserAccountSolde = pref.getString("SOLDE", null);
 
 		} else {
+
 			Builder build = new AlertDialog.Builder(this);
 			build.setTitle("WARNING");
 			build.setMessage("You have to fill your RIB and CreditCard in Wallet "
