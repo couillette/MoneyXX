@@ -4,5 +4,32 @@
         android:id="@+id/action_settings"
         android:showAsAction="never"
         android:title="@string/action_settings"/>
-
+    
+  <item
+        android:id="@+id/action_money_beg"
+        android:showAsAction="always"
+        android:icon="@drawable/ic_money_beg"
+        android:title="Money_beg"/>
+  
+    <item
+        android:id="@+id/action_money_send"
+        android:showAsAction="always"
+        android:icon="@drawable/ic_money_send"
+        android:title="Money_send"/>
+  
+    <item
+        android:id="@+id/action_jackpot"
+        android:showAsAction="always"
+        android:icon="@drawable/ic_jackpot"
+        android:title="Jackpot"/>
+    
+     <item
+        android:id="@+id/action_wallet"
+        android:showAsAction="always"
+        android:icon="@drawable/ic_wallet"
+        android:title="Wallet"/>
+    
+       
+  
 </menu>
+

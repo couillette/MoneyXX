@@ -729,16 +729,38 @@ public class SendBegActivity extends BaseActivity {
 		return true;
 	}
 
-	// Set the call back to return to previous activity
 	@Override
-	public boolean onOptionsItemSelected(MenuItem item) {
+	public boolean onOptionsItemSelected(MenuItem item){
+		Intent myIntent;
 		switch (item.getItemId()) {
 		case android.R.id.home:
 			NavUtils.navigateUpFromSameTask(this);
 			return true;
+		case R.id.action_money_beg:
+            // action_money_beg
+        	myIntent = new Intent(SendBegActivity.this, SendBegActivity.class);
+        	SendBegActivity.this.startActivity(myIntent);
+            return true;
+        case R.id.action_money_send:
+            // action_money_send
+        	myIntent = new Intent(SendBegActivity.this, SendBegActivity.class);
+        	SendBegActivity.this.startActivity(myIntent);
+            return true;
+        case R.id.action_jackpot:
+            // action_jackpot
+        	myIntent = new Intent(SendBegActivity.this, JackpotActivity.class);
+        	SendBegActivity.this.startActivity(myIntent);
+            return true;
+        case R.id.action_wallet:
+            // action_wallet
+        	myIntent = new Intent(SendBegActivity.this, MyWalletActivity.class);
+        	SendBegActivity.this.startActivity(myIntent);
+            return true;
 		default:
 			return super.onOptionsItemSelected(item);
 		}
+		
+		
 	}
 
 }
