@@ -65,10 +65,7 @@ public class StackmobQuery {
 		String phnum = phoneNumber.replaceAll("[+()-]", "").replace(" ", "")
 				.trim();
 		String mail = email.trim();
-<<<<<<< HEAD
 
-=======
->>>>>>> 82a705e5cc7ded006539433bcf03489da27c2784
 		StackMobQuery checkMail = new StackMobQuery().fieldIsEqualTo("email",
 				mail);
 		StackMobQuery checkPhone = new StackMobQuery().fieldIsEqualTo("phone",
@@ -112,19 +109,6 @@ public class StackmobQuery {
 					.fieldIsEqualTo("userregistered_id", usernamev.trim()),
 					new StackMobQueryCallback<UserRegistered>() {
 
-<<<<<<< HEAD
-						@Override
-						public void failure(StackMobException e) {
-							query = true;
-						}
-
-						@Override
-						public void success(List<UserRegistered> userA) {
-							if (!userA.isEmpty()) {
-								userAccountID = userA.get(0).getUser_account()
-										.getID().toString().trim();
-//								USERLIST = userA;
-=======
 						public void failure(StackMobException e) {
 						}
 
@@ -132,7 +116,6 @@ public class StackmobQuery {
 							if (!userAsolde.isEmpty()) {
 								userAccountID = userAsolde.get(0)
 										.getUser_account().getID().trim();
->>>>>>> 82a705e5cc7ded006539433bcf03489da27c2784
 							}
 							query = true;
 						}
@@ -151,25 +134,12 @@ public class StackmobQuery {
 					.fieldIsEqualTo("useraccount_id", accountID.trim()),
 					new StackMobQueryCallback<UserAccount>() {
 
-<<<<<<< HEAD
-						@Override
-						public void failure(StackMobException e) {
-							query = true;
-						}
-
-						@Override
-						public void success(List<UserAccount> userAcc) {
-								userAccountSolde = Integer.parseInt(userAcc.get(0).getSolde().toString());
-								
-=======
 						public void failure(StackMobException e) {
 						}
 
 						public void success(List<UserAccount> userAcc) {
 							userAccountSolde = Integer.parseInt(userAcc.get(0)
 									.getSolde().trim());
-							query = true;
->>>>>>> 82a705e5cc7ded006539433bcf03489da27c2784
 						}
 					});
 		}
@@ -217,10 +187,7 @@ public class StackmobQuery {
 					});
 		}
 	}
-<<<<<<< HEAD
-	
 
-=======
 
 	public List<UserAccount> fetchSoldeByBankRIBandCreditCard(
 			String bankrib_solde, String creditcard_solde) {
@@ -252,8 +219,7 @@ public class StackmobQuery {
 		}
 		return userAccountList;
 	}
->>>>>>> 82a705e5cc7ded006539433bcf03489da27c2784
-
+	
 	public List<UserAccount> getUserAccountList() {
 		return userAccountList;
 	}

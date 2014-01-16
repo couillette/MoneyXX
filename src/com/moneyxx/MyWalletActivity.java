@@ -1,5 +1,7 @@
 package com.moneyxx;
 
+import java.util.List;
+
 import com.entity.UserAccount;
 import com.entity.UserRegistered;
 import com.moneyxx.R;
@@ -31,16 +33,10 @@ public class MyWalletActivity extends Activity {
 	private String creditCard;
 	private String solde;
 	private String username;
+	private String accountID;
 	private PhoneData phoneData;
 	private TextView error_message;
-<<<<<<< HEAD
-	
-	Intent intent;
-	
-	// Query on stackmob
-	StackmobQuery stQuery;
-	
-=======
+
 
 	TextView bankRIB_TV;
 	TextView creditCard_TV;
@@ -49,7 +45,6 @@ public class MyWalletActivity extends Activity {
 
 	Intent intent;
 
->>>>>>> 82a705e5cc7ded006539433bcf03489da27c2784
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -75,30 +70,19 @@ public class MyWalletActivity extends Activity {
 				phoneData.savePrefs(this, "BANKRIB", bankRIB);
 				phoneData.savePrefs(this, "CREDITCARD", creditCard);
 				phoneData.savePrefs(this, "SOLDE", "0");
-<<<<<<< HEAD
-				
-				//set relationship between UserRegisterd and Account on stackmob
-=======
+
 
 				// StackmobQuery stqq = new StackmobQuery();
 				// accountID = stqq.fetchUserAccountID(username);
 				// phoneData.savePrefs(this, "ACCOUNTID", accountID.trim());
 
-				// set relationship between UserRegisterd and Account on
-				// stackmob
->>>>>>> 82a705e5cc7ded006539433bcf03489da27c2784
+				// set relationship between UserRegisterd and Account on stackmob
 				UserAccount account = new UserAccount(bankRIB, creditCard, "0");
 				account.save();
 				UserRegistered usr = new UserRegistered();
 				usr.setID(username.trim());
 				usr.setUser_account(account);
 				usr.save();
-<<<<<<< HEAD
-				
-				setContentView(R.layout.activity_my_wallet);
-				loadPrefs();
-			}else {
-=======
 
 				accountID = account.getID();
 				phoneData.savePrefs(this, "ACCOUNTID", accountID.trim());
@@ -107,7 +91,6 @@ public class MyWalletActivity extends Activity {
 				loadPrefs();
 
 			} else {
->>>>>>> 82a705e5cc7ded006539433bcf03489da27c2784
 				// Display error message when required field are not complete
 				error_message = (TextView) findViewById(R.id.textView_Wallet1);
 				String text = "\n\nYou need to fill correctly the required field "
@@ -117,12 +100,6 @@ public class MyWalletActivity extends Activity {
 			break;
 
 		case R.id.imageButton_wallet_refresh:
-<<<<<<< HEAD
-//			StackmobQuery stQuery = new StackmobQuery();
-//			stQuery.fetchAllUserRegistered();
-		break;
-		
-=======
 
 			StackmobQuery stQ = new StackmobQuery();
 			String accountIDD = stQ.fetchUserAccountID(username.trim());
@@ -146,7 +123,6 @@ public class MyWalletActivity extends Activity {
 			MyWalletActivity.this.startActivity(intent);
 			break;
 
->>>>>>> 82a705e5cc7ded006539433bcf03489da27c2784
 		case R.id.button_Wallet_Recharge:
 		case R.id.button_Wallet_Transfer:
 			intent = new Intent(MyWalletActivity.this,
@@ -161,39 +137,7 @@ public class MyWalletActivity extends Activity {
 		}
 
 	}
-<<<<<<< HEAD
-	
-	
-	private void loadPrefs(){
-		SharedPreferences pref = PreferenceManager.getDefaultSharedPreferences(this);
-//		boolean AccountIsOK = pref.getBoolean("ACCOUNT", false);
-//		
-//		// Sign_up activity should be display only at the first time. For this we need to store preference
-//		if (AccountIsOK) {
-			username = pref.getString("USERNAME", null);
-			bankRIB = pref.getString("BANKRIB", null);
-			creditCard = pref.getString("CREDITCARD", null);
-			solde = pref.getString("SOLDE", null);
-//			
-			if (!(bankRIB==null) && !(creditCard==null)) {
-				this.setContentView(R.layout.activity_my_wallet);
-//
-				TextView bank_info = (TextView) findViewById(R.id.textView_Wallet_BankRIB);
-				TextView creditCard_info = (TextView) findViewById(R.id.textView_Wallet_CreditCard);
-				TextView userName = (TextView) findViewById(R.id.textView_Wallet_Username);
-				TextView balance = (TextView) findViewById(R.id.textView_Wallet_Balance);
-				bank_info.append(bankRIB);
-				creditCard_info.append(creditCard);
-				userName.setText(username);
-				balance.append("" + solde + "$");
-//				
-			} else {
-				this.setContentView(R.layout.activity_my_wallet1);
-			}
-//		} else {
-//			this.setContentView(R.layout.activity_my_wallet1);
-//		}
-=======
+
 
 	private void loadPrefs() {
 		SharedPreferences pref = PreferenceManager
@@ -226,7 +170,6 @@ public class MyWalletActivity extends Activity {
 		// } else {
 		// this.setContentView(R.layout.activity_my_wallet1);
 		// }
->>>>>>> 82a705e5cc7ded006539433bcf03489da27c2784
 	}
 
 	public void appendTextDifSize(TextView tv, String text, float size) {

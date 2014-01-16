@@ -24,13 +24,10 @@ import android.widget.TextView;
 public class BankSettingsFragment extends Fragment {
 	String bankRIB;
 	String creditCard;
-<<<<<<< HEAD
-	
-=======
+
 	String accountID;
 	String username;
 
->>>>>>> 82a705e5cc7ded006539433bcf03489da27c2784
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
 			Bundle savedInstanceState) {
@@ -47,23 +44,9 @@ public class BankSettingsFragment extends Fragment {
 				.findViewById(R.id.button_Settings_BankSave);
 		b.setOnClickListener(new OnClickListener() {
 			public void onClick(View v) {
-<<<<<<< HEAD
-				
-				bankRIB = ((EditText) rootView.findViewById(R.id.editText_Settings_bankRIB)).getText().toString();
-				creditCard = ((EditText) rootView.findViewById(R.id.editText_Settings_creditCard)).getText().toString();
-				
-				//set relationship between UserRegisterd and Account on stackmob
-				SharedPreferences pref = PreferenceManager.getDefaultSharedPreferences(getActivity());
-				String username = pref.getString("USERNAME", null);
-				
-				StackmobQuery stQuery = new StackmobQuery();
-				String accountID = stQuery.fetchUserAccountID(username.trim());
-				
-=======
 
-				bankRIB = ((EditText) rootView
-						.findViewById(R.id.editText_Settings_bankRIB))
-						.getText().toString();
+
+				bankRIB = ((EditText) rootView.findViewById(R.id.editText_Settings_bankRIB)).getText().toString();
 				creditCard = ((EditText) rootView
 						.findViewById(R.id.editText_Settings_creditCard))
 						.getText().toString();
@@ -75,7 +58,6 @@ public class BankSettingsFragment extends Fragment {
 				username = pref.getString("USERNAME", null);
 				accountID = pref.getString("ACCOUNTID", null);
 
->>>>>>> 82a705e5cc7ded006539433bcf03489da27c2784
 				UserAccount account = new UserAccount();
 				account.setID(accountID);
 				account.setbankRIB(bankRIB.trim());
