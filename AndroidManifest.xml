@@ -25,7 +25,6 @@
             android:label="@string/app_name" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
@@ -63,21 +62,21 @@
         </activity>
         <activity
             android:name="com.moneyxx.SettingsActivity"
-            android:label="@string/title_activity_settings" >
+            android:label="" >
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.moneyxx.MainActivity" />
         </activity>
         <activity
             android:name="com.moneyxx.TransferRechargeActivity"
-            android:label="@string/title_activity_transfer_recharge" >
+            android:label="" >
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.moneyxx.MyWalletActivity" />
         </activity>
         <activity
             android:name="com.moneyxx.HistoricActivity"
-            android:label="@string/title_activity_historic" >
+            android:label="" >
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.moneyxx.MainActivity" />

@@ -56,6 +56,8 @@ public class SettingsActivity extends FragmentActivity implements
 		// Set up the action bar.
 		actionBar.setHomeButtonEnabled(false);
 		actionBar.setNavigationMode(ActionBar.NAVIGATION_MODE_TABS);
+		// Enable the callBack button
+		actionBar.setDisplayHomeAsUpEnabled(true);
 
 		// Adding Tabs
 		for (String tab_name : tabs) {
