@@ -58,6 +58,11 @@ public class MainActivity extends Activity {
         	myIntent = new Intent(MainActivity.this, MyWalletActivity.class);
 			MainActivity.this.startActivity(myIntent);
             return true;
+        case R.id.action_settings:
+            // action_settings
+        	myIntent = new Intent(MainActivity.this, SettingsActivity.class);
+			MainActivity.this.startActivity(myIntent);
+            return true;
         
         default:
             return super.onOptionsItemSelected(item);

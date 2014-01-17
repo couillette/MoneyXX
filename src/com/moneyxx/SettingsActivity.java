@@ -16,6 +16,8 @@ import android.os.Bundle;
 //import android.app.Fragment;
 import android.support.v4.app.*;
 import android.support.v4.view.ViewPager;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
@@ -38,6 +40,10 @@ public class SettingsActivity extends FragmentActivity implements
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_settings);
+		
+		 
+		
+
 
 		// Initialization
 		mViewPager = (ViewPager) findViewById(R.id.pager);
@@ -100,5 +106,50 @@ public class SettingsActivity extends FragmentActivity implements
 
 	@Override
 	public void onTabUnselected(Tab tab, FragmentTransaction ft) {
+	}
+	
+	@Override
+	public boolean onCreateOptionsMenu(Menu menu) {
+		// Inflate the menu; this adds items to the action bar if it is present.
+		getMenuInflater().inflate(R.menu.main, menu);
+		return true;
+	}
+	@Override
+	public boolean onOptionsItemSelected(MenuItem item){
+		Intent myIntent;
+		switch (item.getItemId()) {
+		case android.R.id.home:
+			NavUtils.navigateUpFromSameTask(this);
+			return true;
+		case R.id.action_money_beg:
+            // action_money_beg
+        	myIntent = new Intent(SettingsActivity.this, SendBegActivity.class);
+        	SettingsActivity.this.startActivity(myIntent);
+            return true;
+        case R.id.action_money_send:
+            // action_money_send
+        	myIntent = new Intent(SettingsActivity.this, SendBegActivity.class);
+        	SettingsActivity.this.startActivity(myIntent);
+            return true;
+        case R.id.action_jackpot:
+            // action_jackpot
+        	myIntent = new Intent(SettingsActivity.this, JackpotActivity.class);
+        	SettingsActivity.this.startActivity(myIntent);
+            return true;
+        case R.id.action_wallet:
+            // action_wallet
+        	myIntent = new Intent(SettingsActivity.this, MyWalletActivity.class);
+        	SettingsActivity.this.startActivity(myIntent);
+            return true;
+        case R.id.action_settings:
+            // action_settings
+        	myIntent = new Intent(SettingsActivity.this, SettingsActivity.class);
+        	SettingsActivity.this.startActivity(myIntent);
+            return true;
+		default:
+			return super.onOptionsItemSelected(item);
+		}
+		
+		
 	}
 }

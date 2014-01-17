@@ -62,6 +62,12 @@ public class JackpotActivity extends Activity {
 	        	myIntent = new Intent(JackpotActivity.this, MyWalletActivity.class);
 	        	JackpotActivity.this.startActivity(myIntent);
 	            return true;
+	        case R.id.action_settings:
+	            // action_settings
+	        	myIntent = new Intent(JackpotActivity.this, SettingsActivity.class);
+				JackpotActivity.this.startActivity(myIntent);
+	            return true;      
+	            
 			default:
 				return super.onOptionsItemSelected(item);
 			}

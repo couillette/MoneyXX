@@ -66,15 +66,21 @@
             android:label="@string/title_activity_settings" >
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value="com.moneyxx.MyWalletActivity" />
+                android:value="com.moneyxx.MainActivity" />
         </activity>
         <activity
             android:name="com.moneyxx.TransferRechargeActivity"
             android:label="@string/title_activity_transfer_recharge" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.moneyxx.MyWalletActivity" />
         </activity>
         <activity
             android:name="com.moneyxx.HistoricActivity"
             android:label="@string/title_activity_historic" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.moneyxx.MainActivity" />
         </activity>
     </application>
 

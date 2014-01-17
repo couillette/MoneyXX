@@ -1,6 +1,7 @@
 package com.moneyxx;
 
 import android.os.Bundle;
+import android.app.ActionBar;
 import android.app.Activity;
 import android.content.Intent;
 import android.support.v4.app.NavUtils;
@@ -13,7 +14,14 @@ public class HistoricActivity extends Activity {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_historic);
+		
+		ActionBar actionBar = getActionBar();
+	    actionBar.setDisplayHomeAsUpEnabled(true);
+
+
+
 	}
+
 
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
@@ -50,9 +58,14 @@ public class HistoricActivity extends Activity {
 		        	myIntent = new Intent(HistoricActivity.this, MyWalletActivity.class);
 		        	HistoricActivity.this.startActivity(myIntent);
 		            return true;
-				default:
-					return super.onOptionsItemSelected(item);
+		        case R.id.action_settings:
+		            // action_settings
+		        	myIntent = new Intent(HistoricActivity.this, SettingsActivity.class);
+					HistoricActivity.this.startActivity(myIntent);
+		            return true; 
 				}
+					return super.onOptionsItemSelected(item);
+				
 			}
 
 }

@@ -10,6 +10,7 @@ import com.server.StackmobQuery;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.support.v4.app.NavUtils;
+import android.app.ActionBar;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.AlertDialog.Builder;
@@ -34,12 +35,17 @@ public class TransferRechargeActivity extends Activity {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_transfer_recharge);
 		
+		
+
 		SharedPreferences pref = PreferenceManager.getDefaultSharedPreferences(this);
 		bankRIB = pref.getString("BANKRIB", null);
 		creditCard = pref.getString("CREDITCARD", null);
 		username = pref.getString("USERNAME", null);
 		solde = pref.getString("SOLDE", null);
 		accountID = pref.getString("ACCOUNTID", null);
+		
+		ActionBar actionBar = getActionBar();
+	    actionBar.setDisplayHomeAsUpEnabled(true);
 	}
 
 	@Override
@@ -180,6 +186,11 @@ public class TransferRechargeActivity extends Activity {
         	myIntent = new Intent(TransferRechargeActivity.this, MyWalletActivity.class);
         	TransferRechargeActivity.this.startActivity(myIntent);
             return true;
+        case R.id.action_settings:
+            // action_settings
+        	myIntent = new Intent(TransferRechargeActivity.this, SettingsActivity.class);
+        	TransferRechargeActivity.this.startActivity(myIntent);
+            return true; 
 		default:
 			return super.onOptionsItemSelected(item);
 		}

@@ -756,6 +756,12 @@ public class SendBegActivity extends BaseActivity {
         	myIntent = new Intent(SendBegActivity.this, MyWalletActivity.class);
         	SendBegActivity.this.startActivity(myIntent);
             return true;
+        case R.id.action_settings:
+            // action_settings
+        	myIntent = new Intent(SendBegActivity.this, SettingsActivity.class);
+			SendBegActivity.this.startActivity(myIntent);
+            return true;   
+            
 		default:
 			return super.onOptionsItemSelected(item);
 		}
