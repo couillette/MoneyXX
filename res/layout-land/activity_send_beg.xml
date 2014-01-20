@@ -1,0 +1,86 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/green"
+    android:gravity="center_horizontal"
+    android:paddingBottom="@dimen/activity_vertical_margin"
+    android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingTop="@dimen/activity_vertical_margin"
+    tools:context=".SendBegActivity" >
+
+    <EditText
+        android:id="@+id/editText_AmountOfMoney"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentTop="true"
+        android:layout_toLeftOf="@+id/image_money_bill"
+        android:background="@color/green"
+        android:ems="1"
+        android:gravity="center"
+        android:inputType="number"
+        android:text="35"
+        android:textColor="@color/blank"
+        android:textSize="130sp" />
+
+    <TextView
+        android:id="@+id/textView_messageSendorBeg"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_below="@+id/editText_AmountOfMoney"
+        android:layout_marginLeft="50dp"
+        android:text="Enter or Search in your contacts by Name, Phone or Email." />
+
+    <EditText
+        android:id="@+id/editText_message"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/textView_messageSendorBeg"
+        android:layout_marginLeft="32dp"
+        android:layout_toRightOf="@+id/AutoComp_TO:"
+        android:ems="10"
+        android:hint="message" />
+
+    <AutoCompleteTextView
+        android:id="@+id/AutoComp_TO:"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/editText_AmountOfMoney"
+        android:layout_below="@+id/textView_messageSendorBeg"
+        android:ems="10"
+        android:hint="to :" >
+
+        <requestFocus />
+    </AutoCompleteTextView>
+
+    <Button
+        android:id="@+id/buton_SendRequest"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_alignTop="@+id/image_money_bill"
+        android:onClick="onClick"
+        android:text="SendMoney" />
+
+    <Button
+        android:id="@+id/button_BegRequest"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@+id/image_money_bill"
+        android:layout_alignLeft="@+id/buton_SendRequest"
+        android:onClick="onClick"
+        android:text="BegMoney" />
+
+    <ImageView
+        android:id="@+id/image_money_bill"
+        android:layout_width="70sp"
+        android:layout_height="120sp"
+        android:layout_alignTop="@+id/editText_AmountOfMoney"
+        android:layout_marginRight="14dp"
+        android:layout_toLeftOf="@+id/buton_SendRequest"
+        android:src="@drawable/ic_money_bill2" />
+
+</RelativeLayout>

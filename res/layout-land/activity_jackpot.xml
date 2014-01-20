@@ -15,17 +15,30 @@
         android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
         android:layout_alignParentTop="true"
-        android:layout_marginLeft="24dp"
-        android:layout_marginTop="31dp"
         android:text="Create Project " />
+
+    <ImageButton
+        android:id="@+id/imageButton2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignRight="@+id/button1"
+        android:layout_below="@+id/textView1"
+        android:src="@drawable/ic_lilyhoney" />
+
+    <TextView
+        android:id="@+id/textView2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/imageButton2"
+        android:layout_below="@+id/imageButton2"
+        android:text="Lilly Honey" />
 
     <ImageButton
         android:id="@+id/imageButton1"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignLeft="@+id/button1"
-        android:layout_below="@+id/button1"
-        android:layout_marginTop="53dp"
+        android:layout_above="@+id/textView3"
+        android:layout_toLeftOf="@+id/imageButton3"
         android:src="@drawable/ic_aba" />
 
     <TextView
@@ -34,58 +47,41 @@
         android:layout_height="wrap_content"
         android:layout_alignLeft="@+id/imageButton1"
         android:layout_below="@+id/imageButton1"
-        android:layout_marginTop="26dp"
         android:text="Aba" />
-
-    <ImageButton
-        android:id="@+id/imageButton2"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignTop="@+id/imageButton1"
-        android:layout_toRightOf="@+id/button1"
-        android:src="@drawable/ic_lilyhoney" />
 
     <ImageButton
         android:id="@+id/imageButton3"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignLeft="@+id/textView1"
-        android:layout_below="@+id/textView1"
-        android:layout_marginTop="42dp"
+        android:layout_below="@+id/button1"
+        android:layout_marginLeft="146dp"
+        android:layout_toRightOf="@+id/button1"
         android:src="@drawable/ic_birdchoregraphy" />
 
     <TextView
         android:id="@+id/textView3"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignLeft="@+id/imageButton3"
         android:layout_below="@+id/imageButton3"
-        android:layout_marginTop="18dp"
-        android:text="Bird Choregraphy" />
-
-    <ImageButton
-        android:id="@+id/imageButton4"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_above="@+id/textView3"
+        android:layout_marginLeft="146dp"
         android:layout_toRightOf="@+id/button1"
-        android:src="@drawable/ic_becrazy" />
+        android:text="Bird Choregraphy" />
 
     <TextView
         android:id="@+id/textView4"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignBottom="@+id/textView3"
+        android:layout_alignBaseline="@+id/textView2"
+        android:layout_alignBottom="@+id/textView2"
         android:layout_alignLeft="@+id/imageButton4"
         android:text="Be crazy" />
 
-    <TextView
-        android:id="@+id/textView2"
+    <ImageButton
+        android:id="@+id/imageButton4"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignBaseline="@+id/textView1"
-        android:layout_alignBottom="@+id/textView1"
-        android:layout_alignLeft="@+id/imageButton2"
-        android:text="Lilly Honey" />
+        android:layout_above="@+id/textView4"
+        android:layout_alignLeft="@+id/textView3"
+        android:src="@drawable/ic_becrazy" />
 
 </RelativeLayout>

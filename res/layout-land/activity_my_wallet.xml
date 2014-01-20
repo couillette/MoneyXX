@@ -1,0 +1,91 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/green"
+    android:paddingBottom="@dimen/activity_vertical_margin"
+    android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingTop="@dimen/activity_vertical_margin"
+    tools:context=".MyAccountActivity" >
+    
+     <TextView
+        android:id="@+id/textView_Wallet_BankRIB"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Bank RIB: " />
+
+    <Button
+        android:id="@+id/button_Wallet_Recharge"
+        android:layout_width="160dp"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/button_Wallet_Historic"
+        android:layout_below="@+id/button_Wallet_Historic"
+        android:layout_marginTop="16dp"
+        android:onClick="onClick"
+        android:text="Recharge" />
+
+    <Button
+        android:id="@+id/button_Wallet_Historic"
+        android:layout_width="160dp"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/textView_Wallet_CreditCard"
+        android:layout_centerVertical="true"
+        android:onClick="onClick"
+        android:text="Historics" />
+
+    <ImageButton
+        android:id="@+id/imageButton_wallet_refresh"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_alignTop="@+id/textView_Wallet_BankRIB"
+        android:src="@drawable/ic_refresh" />
+
+    <Button
+        android:id="@+id/button_Wallet_Settings"
+        android:layout_width="160dp"
+        android:layout_height="wrap_content"
+        android:layout_alignBaseline="@+id/button_Wallet_Recharge"
+        android:layout_alignBottom="@+id/button_Wallet_Recharge"
+        android:layout_alignRight="@+id/button_Wallet_Transfer"
+        android:onClick="onClick"
+        android:text="Settings" />
+
+    <TextView
+        android:id="@+id/textView_Wallet_CreditCard"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/textView_Wallet_BankRIB"
+        android:layout_below="@+id/imageButton_wallet_refresh"
+        android:text="CreditCard: " />
+
+    <TextView
+        android:id="@+id/textView_Wallet_Balance"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBaseline="@+id/textView_Wallet_CreditCard"
+        android:layout_alignBottom="@+id/textView_Wallet_CreditCard"
+        android:layout_alignLeft="@+id/button_Wallet_Settings"
+        android:text="Balance: " />
+
+    <TextView
+        android:id="@+id/textView_Wallet_Username"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/textView_Wallet_Balance"
+        android:layout_alignTop="@+id/imageButton_wallet_refresh"
+        android:text="Username" />
+
+    <Button
+        android:id="@+id/button_Wallet_Transfer"
+        android:layout_width="160dp"
+        android:layout_height="wrap_content"
+        android:layout_alignBaseline="@+id/button_Wallet_Historic"
+        android:layout_alignBottom="@+id/button_Wallet_Historic"
+        android:layout_marginRight="28dp"
+        android:layout_toLeftOf="@+id/imageButton_wallet_refresh"
+        android:onClick="onClick"
+        android:text="Transfer" />
+
+</RelativeLayout>

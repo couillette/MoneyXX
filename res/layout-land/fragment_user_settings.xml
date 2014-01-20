@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/User"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#97af0d"
+    android:orientation="vertical" >
+
+    <TextView
+        android:id="@+id/textView_Settings_User"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentTop="true"
+        android:text="Test version"
+        android:textSize="22dp" />
+
+    <AutoCompleteTextView
+        android:id="@+id/AutoComp_Settings_Username"
+        android:layout_width="262dp"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_below="@+id/textView_Settings_User"
+        android:layout_marginTop="22dp"
+        android:ems="10"
+        android:hint="Username" />
+
+    <AutoCompleteTextView
+        android:id="@+id/AutoComp_Settings_Phone"
+        android:layout_width="275dp"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_below="@+id/AutoComp_Settings_Email"
+        android:layout_marginTop="22dp"
+        android:ems="10"
+        android:hint="phone" >
+
+        <requestFocus />
+    </AutoCompleteTextView>
+
+    <Button
+        android:id="@+id/button_Settings_UserSave"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@+id/AutoComp_Settings_Phone"
+        android:layout_alignParentRight="true"
+        android:layout_marginRight="89dp"
+        android:text="Save" />
+
+    <AutoCompleteTextView
+        android:id="@+id/AutoComp_Settings_Email"
+        android:layout_width="272dp"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_centerVertical="true"
+        android:ems="10"
+        android:hint="email" />
+
+</RelativeLayout>

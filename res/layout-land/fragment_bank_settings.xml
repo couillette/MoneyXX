@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/Banking"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#fa6a6a"
+    android:orientation="vertical" >
+
+    <TextView
+        android:id="@+id/textView_Settings_bankInfo"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentTop="true"
+        android:text="Bank Information"
+        android:textSize="22dp" />
+
+    <TextView
+        android:id="@+id/textView_Settings_RIB"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_below="@+id/textView_Settings_bankInfo"
+        android:text="Enter your RIB" />
+
+    <EditText
+        android:id="@+id/editText_Settings_bankRIB"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_below="@+id/textView_Settings_RIB"
+        android:ems="10"
+        android:inputType="number" >
+
+        <requestFocus />
+    </EditText>
+
+    <TextView
+        android:id="@+id/textView_Settings_crediCard"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_below="@+id/editText_Settings_bankRIB"
+        android:text="Enter your credit card" />
+
+    <EditText
+        android:id="@+id/editText_Settings_creditCard"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_below="@+id/textView_Settings_crediCard"
+        android:ems="10"
+        android:inputType="number" />
+
+    <Button
+        android:id="@+id/button_Settings_BankSave"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_below="@+id/editText_Settings_creditCard"
+        android:layout_marginRight="93dp"
+        android:onClick="onClick"
+        android:text="Save" />
+
+</RelativeLayout>
