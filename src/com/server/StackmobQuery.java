@@ -7,6 +7,7 @@ import com.entity.Project;
 import com.entity.ProjectAccount;
 import com.entity.UserAccount;
 import com.entity.UserRegistered;
+import com.entity.UserUnRegistered;
 import com.stackmob.sdk.api.StackMobQuery;
 import com.stackmob.sdk.callback.StackMobModelCallback;
 import com.stackmob.sdk.callback.StackMobQueryCallback;
@@ -16,7 +17,28 @@ public class StackmobQuery {
 
 	Boolean query;
 	Boolean userExist;
-	String username;
+	
+//	class UserRec{
+//		Boolean b;
+//		String nameRec, phoneRec, emailRec;
+//		public UserRec(Boolean b, String name, String phone, String email){
+//			this.b=b; nameRec=name; phoneRec=phone; emailRec=email;
+//		}
+//		public String getNameRec() {
+//			return nameRec;
+//		}
+//		public String getNameRec() {
+//			return nameRec;
+//		}
+//		public String getPhoneRec() {
+//			return phoneRec;
+//		}
+//		public String getEmailRec() {
+//			return emailRec;
+//		}
+//	}
+//	
+//	ArrayList<UserRec> userRegistered;
 
 	String userAccountID;
 	int userAccountSolde;
@@ -28,6 +50,7 @@ public class StackmobQuery {
 	String projecAccountBankRIB;
 
 	List<UserRegistered> USERLIST;
+	List<UserUnRegistered> list_UserUnRec;
 	List<UserAccount> userAccountList;
 	List<ProjectAccount> projectAccountList;
 	List<Project> projectList;
@@ -61,10 +84,8 @@ public class StackmobQuery {
 		return userExist;
 	}
 
-	public Boolean checkByMailOrPhone(String phoneNumber, String email) {
-		userExist = false;
+	public List<UserRegistered> checkByMailOrPhone(String phoneNumber, String email) {
 		query = false;
-		username = "";
 
 		// to make query on phoneNumber we had to change phone attribute in
 		// UserRegistered
@@ -81,28 +102,49 @@ public class StackmobQuery {
 		while (!query) {
 			UserRegistered.query(UserRegistered.class, new StackMobQuery().fieldIsEqualTo("phone", phnum).or(checkMail),
 					new StackMobQueryCallback<UserRegistered>() {
-
-						@Override
 						public void failure(StackMobException e) {
-							// userExist = false;
 							query = true;
 						}
-
-						@Override
 						public void success(List<UserRegistered> user) {
-							if (!user.isEmpty()) {
-								userExist = true;
-								username = user.get(0).getUsername().toString()
-										.trim();
-							} else {
-								userExist = false;
-							}
+							USERLIST=user;
 							query = true;
 						}
 					});
 		}
-		return userExist;
+		return USERLIST;
 	}
+	
+	
+	public List<UserRegistered> checkByMailOrPhoneUnRegisteredUser(String phoneNumber, String email) {
+		query = false;
+
+		// to make query on phoneNumber we had to change phone attribute in
+		// UserRegistered
+		// into String field. because you have things like "+33" or "("... in
+		// android field numbers
+		String phnum = phoneNumber.replaceAll("[+()-]", "").replace(" ", "").trim();
+		String mail = email.trim();
+
+		StackMobQuery checkMail = new StackMobQuery().fieldIsEqualTo("email",mail);
+		StackMobQuery checkPhone = new StackMobQuery().fieldIsEqualTo("phone",phnum);
+
+		// while because the query is asynchronous and we need to wait the
+		// result
+		while (!query) {
+			UserUnRegistered.query(UserUnRegistered.class, new StackMobQuery().fieldIsEqualTo("phone", phnum).or(checkMail),
+					new StackMobQueryCallback<UserUnRegistered>() {
+						public void failure(StackMobException e) {
+							query = true;
+						}
+						public void success(List<UserUnRegistered> userUnRec) {
+							list_UserUnRec=userUnRec;
+							query = true;
+						}
+					});
+		}
+		return USERLIST;
+	}
+	
 
 	public String fetchUserAccountIdByName(String usernamev) {
 		userAccountID = "";
@@ -338,10 +380,6 @@ public class StackmobQuery {
 
 	public int getUserAccountSolde() {
 		return userAccountSolde;
-	}
-
-	public String getUsername() {
-		return username;
 	}
 
 	public List<UserRegistered> getUserList() {

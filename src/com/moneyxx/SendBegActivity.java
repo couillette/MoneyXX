@@ -7,6 +7,7 @@ import java.util.Map;
 
 import com.entity.UserAccount;
 import com.entity.UserRegistered;
+import com.entity.UserUnRegistered;
 import com.moneyxx.R;
 import com.server.BaseActivity;
 import com.server.PhoneData;
@@ -55,6 +56,7 @@ public class SendBegActivity extends BaseActivity {
 	// text return by checkIfUserIsRegistered()
 	String alertDialog_text;
 	AutoCompleteTextView TxtView_AutoComp_TO;
+	List<UserRegistered> usrRec;
 
 	Boolean userIsRegisterd;
 	String thisUserName;
@@ -115,6 +117,34 @@ public class SendBegActivity extends BaseActivity {
 		if (loadPrefs()) {
 			final String amount = ((EditText) findViewById(R.id.editText_AmountOfMoney)).getText().toString();
 			userIsRegisterd = false;
+			
+			//condition to allow user entry without autocompletion only from his contacts
+			if(contactData[0].equals("Name")) {
+				String data = ((AutoCompleteTextView) findViewById(R.id.AutoComp_TO_)).getText().toString();
+				if(data.contains("@") && data.contains(".")) {
+					contactData[0]="Name : Unknown";
+					contactData[1]="Phone : Unknown";
+					contactData[2]=data;
+				} else {
+					contactData[0]="Name : Unknown";
+					contactData[1]=data;
+					contactData[2]="Email : Unknown";
+				}
+			}
+			// query on stackmob datastore to check if user are registered or not
+			final StackmobQuery stQuery = new StackmobQuery();
+			usrRec = stQuery.checkByMailOrPhone(contactData[1],contactData[2]);
+			userIsRegisterd = !(usrRec.isEmpty());
+			
+			if (userIsRegisterd) {
+				alertDialog_text = "\n\nGreat! This kown and have a MoneyXX account.";
+				contactData[0]=usrRec.get(0).getUsername();
+				contactData[1]=usrRec.get(0).getPhone();
+				contactData[2]=usrRec.get(0).getEmail();
+			} else {
+				alertDialog_text = "\n\nWARNING : this person doesn't have any MoneyXX Account\n" +
+						"this action is not allowed yet";
+			}
 
 			
 
@@ -122,48 +152,19 @@ public class SendBegActivity extends BaseActivity {
 
 			// if user click on "Send Money"
 			case R.id.buton_SendRequest:
-
+				
 				Builder send_message = new AlertDialog.Builder(this);
 				send_message.setTitle("Warning");
-				
-				// query on stackmob datastore to check if user are registered or not
-				final StackmobQuery stQuery = new StackmobQuery();
-				
-				//condition to allow user entry without autocompletion only from his contacts
-				if(!contactData[0].equals("Name")) {
-					userIsRegisterd = stQuery.checkByMailOrPhone(contactData[1],contactData[2]);
-					
-					if (userIsRegisterd) {
-						alertDialog_text = "\n\nGreat! This person is kown and have a MoneyXX account.";
-					} else {
-						alertDialog_text = "\n\nWARNING : this person doesn't have any MoneyXX Account\n" +
-								"this action is not allowed yet";
-					}
-					
-					send_message.setMessage("You are going to send " + amount 
-							+ " $ to :\n" + "  " + contactData[0] + "\n  "
-							+ contactData[1] + "\n  " + contactData[2] + alertDialog_text);
-				} else {
-					String data = ((AutoCompleteTextView) findViewById(R.id.AutoComp_TO_)).getText().toString();
-					userIsRegisterd = stQuery.checkByMailOrPhone(data,data);
-					
-					if (userIsRegisterd) {
-						alertDialog_text = "\n\nGreat! This person is kown and have a MoneyXX account.";
-					} else {
-						alertDialog_text = "\n\nWARNING : this person doesn't have any MoneyXX Account\n" +
-								"this action is not allowed yet";
-					}
-					
-					//will not check if it is correct email or phone number (cannot check phone...)
-					send_message.setMessage("You are going to send " + amount + " $ to : "+ data + alertDialog_text);
-				}
+				send_message.setMessage("You are going to send " + amount 
+						+ " $ to :\n" + "  " + contactData[0] + "\n  "
+						+ contactData[1] + "\n  " + contactData[2] + alertDialog_text);
 
 				send_message.setPositiveButton("OK",new DialogInterface.OnClickListener() {
 					public void onClick(DialogInterface dialog, int which) {
 						if (userIsRegisterd) {
 							
 							// credit receiver account, debit sender account and check that the transaction succeed
-							if (creditDebit(thisUserName,stQuery.getUsername(), amount)) {
+							if (creditDebit(thisUserName, contactData[0], amount)) {
 								
 								// send message (mail or sms) to receiver
 								String[] mailAddressR = { contactData[2].trim() };
@@ -178,45 +179,69 @@ public class SendBegActivity extends BaseActivity {
 								// send message (mail or sms) to sender
 								String[] mailAddressS = { thisUserName.trim() };
 								String subS = "money sent";
-								String messageS = "you sent "+ amount+ "$ to "+ contactData[0].trim()
-												+ " and your account was debited";
+								String messageS = "you sent "+ amount+ "$ to :\n"+ contactData[0] +"\n"
+												+ contactData[1]+"\n" + contactData[2]
+												+ "\nYour account was debited";
 								new SendEmailAsyncTask(mailAddressS,subS, messageS).execute();
-
-								// confirmation display on MoneyXX
-								Builder confirmation = new AlertDialog.Builder(SendBegActivity.this);
-								confirmation.setTitle("Confirmaation");
-								confirmation.setMessage("Successfull transaction !"+ "/nYou and your contact will be notified by email");
 							}
 						}
-								// else if ( !userIsRegisterd ) {
-								//
-								// //create an account!!!
-								// //credit receiver account
-								// // //debit sender account
-								//
-								// //send message (mail or sms) to receiver
-								// String[] mailAddressR =
-								// {contactData[2].trim()};
-								// String subR = "money earned";
-								// String messageR =
-								// "you just receive "+amount+"$ from "+thisUserName+
-								// " and your account was credited";
-								// new SendEmailAsyncTask(mailAddressR, subR,
-								// messageR).execute();
-								//
-								// //send message (mail or sms) to sender
-								// String[] mailAddressS =
-								// {thisUserName.trim()};
-								// String subS = "money sent";
-								// String messageS =
-								// "you sent "+amount+"$ to "+contactData[0].trim()+
-								// " and your account was debited";
-								// new SendEmailAsyncTask(mailAddressS, subS,
-								// messageS).execute();
-								//
-								// }
+						
+						else if ( !userIsRegisterd ) {
+							
+							//create Unregistered Account and profile on Stackmob
+							UserAccount uuacc = new UserAccount(amount);
+							uuacc.save();
+							UserUnRegistered uurec = new UserUnRegistered(contactData[2].trim(), contactData[1].trim(), "AZERTY");
+							uurec.setUser_account(uuacc);
+							uurec.save();
+							
+							//debit sender account
+							Boolean done = false;
+							while (!done) {
+								int solde0 = Integer.parseInt(thisUserAccountSolde.trim());
+								int solde1 = solde0 - Integer.parseInt(amount.trim());
+								UserAccount us = new UserAccount();
+								us.setID(thisUserAccountID);
+								us.setSolde("" + solde1);
+								us.save();
+								PhoneData p = new PhoneData();
+								p.savePrefs(SendBegActivity.this, "SOLDE", "" + solde1);
+								done = true;
 							}
-						});
+							
+							if(!contactData[2].contains("Email : Unknown")){
+								//send message (mail or sms) to receiver
+								String[] mailAddressR = { contactData[2].trim() };
+								String subR = "MoneyXX";
+								
+								// add message from sender fill in the layout
+								String m = ((EditText) findViewById(R.id.editText_message)).getText().toString();
+								String messageR = "HI,\n\nAperson you may know wish you lots of good things. He send you : "
+										+amount+ "$. His pseudo on MoneyXX is : "+ thisUserName
+												+ ". Atemporary account was credited based on this email. To acces this account " +
+												"you first need to download MoneyXX application and singup with this email addres and " +
+												"this password :\nAZERTY\n\n" + m;
+								new SendEmailAsyncTask(mailAddressR,subR, messageR).execute();
+							
+								// send message (mail or sms) to sender
+								String[] mailAddressS = { thisUserName.trim() };
+								String subS = "MoneyXX - SendRequest";
+								String messageS = "you sent "+ amount+ "$ to :\n"+ contactData[0] +"\n"
+											+ contactData[1]+"\n" + contactData[2]
+											+ "\nYour account was debited.";
+								new SendEmailAsyncTask(mailAddressS,subS, messageS).execute();
+								
+								} else{
+									// send message (mail or sms) to sender
+									String[] mailAddressS = { thisUserName.trim() };
+									String subS = "MoneyXX - SendRequest";
+									String messageS = "We cannot send an email to your contact with the information you gave. " +
+										"Please inform this person to download MoneyXX and register Before!";
+									new SendEmailAsyncTask(mailAddressS,subS, messageS).execute();
+							}
+						}
+					}
+				});
 				send_message.setNegativeButton("NO",
 						new DialogInterface.OnClickListener() {
 							@Override
@@ -241,88 +266,66 @@ public class SendBegActivity extends BaseActivity {
 
 				Builder beg_message = new AlertDialog.Builder(this);
 				beg_message.setTitle("Warning");
-				beg_message.setMessage("You want to beg " + amount
-						+ " $ to :\n" + "  " + contactData[0] + "\n  "
-						+ contactData[1] + "\n  " + contactData[2]
-						+ alertDialog_text);
+				beg_message.setMessage("You want to beg " + amount+ " $ to :\n" + "  " + contactData[0] + "\n  "
+						+ contactData[1] + "\n  " + contactData[2]+ alertDialog_text);
 
-				beg_message.setPositiveButton("OK",
-						new DialogInterface.OnClickListener() {
-							@Override
-							public void onClick(DialogInterface dialog,
-									int which) {
-								if (userIsRegisterd) {
-
-									// send message (mail or sms) to receiver
-									String[] mailAddressR = { contactData[2]
-											.trim() };
-									String subR = "Ask Money";
-									// add message from sender fill in the
-									// layout
-									String m = ((EditText) findViewById(R.id.editText_message))
-											.getText().toString();
-									String messageR = thisUserName
-											+ " is beging you "
-											+ amount
-											+ "$"
+				beg_message.setPositiveButton("OK",new DialogInterface.OnClickListener() {
+					public void onClick(DialogInterface dialog,int which) {
+						if (userIsRegisterd) {
+							
+							// send message (mail or sms) to receiver
+							String[] mailAddressR = { contactData[2].trim() };
+							String subR = "Ask Money";
+							// add message from sender fill in the
+							// layout
+							String m = ((EditText) findViewById(R.id.editText_message)).getText().toString();
+							String messageR = thisUserName+ " is beging you "+ amount+ "$"
 											+ " We need your authorization to do the transaction."
 											+ "/n/nStart MoneyXX, go to Send, enter the due amount and email: "
-											+ thisUserEmail.trim()
-											+ ", or refuse the transaction./n/n"
-											+ m;
-									new SendEmailAsyncTask(mailAddressR, subR,
-											messageR).execute();
+											+ thisUserEmail.trim()+ ", or refuse the transaction./n/n"+ m;
+							new SendEmailAsyncTask(mailAddressR, subR, messageR).execute();
 
-									// send message (mail or sms) to sender
-									String[] mailAddressS = { thisUserEmail
-											.trim() };
-									String subS = "you beg Money";
-									String messageS = "you beg "
-											+ amount
-											+ "$ to "
-											+ contactData[0].trim()
+							// send message (mail or sms) to sender
+							String[] mailAddressS = { thisUserEmail.trim() };
+							String subS = "you beg Money";
+							String messageS = "you beg "+ amount+ "$ to "+ contactData[0].trim()
 											+ "/n/n We send him a message to make the transaction on MoneyXX";
-									new SendEmailAsyncTask(mailAddressS, subS,
-											messageS).execute();
-
-									// confirmation display on MoneyXX
-									Builder confirmation = new AlertDialog.Builder(
-											SendBegActivity.this);
-									confirmation.setTitle("Confirmaation");
-									confirmation
-											.setMessage("Successfull transaction !"
-													+ "/nYou and your contact will be notified by email");
-
-								}
-								// else if ( !userIsRegisterd ) {
-								//
-								// //create an account!!!
-								// //credit receiver account
-								// // //debit sender account
-								//
-								// //send message (mail or sms) to receiver
-								// String[] mailAddressR =
-								// {contactData[2].trim()};
-								// String subR = "money earned";
-								// String messageR =
-								// "you just receive "+amount+"$ from "+thisUserName+
-								// " and your account was credited";
-								// new SendEmailAsyncTask(mailAddressR, subR,
-								// messageR).execute();
-								//
-								// //send message (mail or sms) to sender
-								// String[] mailAddressS =
-								// {thisUserName.trim()};
-								// String subS = "money sent";
-								// String messageS =
-								// "you sent "+amount+"$ to "+contactData[0].trim()+
-								// " and your account was debited";
-								// new SendEmailAsyncTask(mailAddressS, subS,
-								// messageS).execute();
-								//
-								// }
+							new SendEmailAsyncTask(mailAddressS, subS,messageS).execute();
+						}
+						
+						else if ( !userIsRegisterd ) {
+							
+							if(!contactData[2].contains("Email : Unknown")){
+								//send message (mail or sms) to receiver
+								String[] mailAddressR = { contactData[2].trim() };
+								String subR = "MoneyXX";
+								
+								// add message from sender fill in the layout
+								String m = ((EditText) findViewById(R.id.editText_message)).getText().toString();
+								String messageR = "HI,\n\nAperson you may know wants your money. He begs you : "
+										+amount+ "$. His pseudo on MoneyXX is : "+ thisUserName
+										+ ". You need to download MoneyXX first and then send him money via the application." + m;
+								new SendEmailAsyncTask(mailAddressR,subR, messageR).execute();
+							
+								// send message (mail or sms) to sender
+								String[] mailAddressS = { thisUserEmail.trim() };
+								String subS = "you beg Money";
+								String messageS = "you beg "+ amount+ "$ to "+ contactData[0].trim()
+												+ "/n/n We send him a email to register on MoneyXX first and then, "
+												+ "realize the transaction on MoneyXX.";
+								new SendEmailAsyncTask(mailAddressS, subS,messageS).execute();
+								
+								} else{
+									// send message (mail or sms) to sender
+									String[] mailAddressS = { thisUserName.trim() };
+									String subS = "MoneyXX - SendRequest";
+									String messageS = "We cannot send an email to your contact with the information you gave. " +
+										"Please inform this person to download MoneyXX and register Before!";
+									new SendEmailAsyncTask(mailAddressS,subS, messageS).execute();
 							}
-						});
+						}
+					}
+				});
 				beg_message.setNegativeButton("NO",
 						new DialogInterface.OnClickListener() {
 

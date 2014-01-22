@@ -14,9 +14,9 @@ public class UserAccount extends StackMobModel{
 		super(UserAccount.class);
 	}
 	
-	public UserAccount(String id){
+	public UserAccount(String solde){
 		super(UserAccount.class);
-		this.setID(id);
+		this.solde = solde;
 	}
 	
 	public UserAccount(String bank_RIB, String creditCard){
