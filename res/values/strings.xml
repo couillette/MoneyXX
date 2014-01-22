@@ -29,5 +29,6 @@
     <string name="title_activity_bank_settings_fragment">BankSettingsFragment</string>
     <string name="title_activity_transfer_recharge">TransferRechargeActivity</string>
     <string name="title_activity_historic">HistoricActivity</string>
+    <string name="title_activity_jackpot_project">JackpotProjectActivity</string>
 
 </resources>

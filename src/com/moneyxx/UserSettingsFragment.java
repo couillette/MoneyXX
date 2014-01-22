@@ -118,7 +118,7 @@ public class UserSettingsFragment extends Fragment {
 				// the query need to return userAccountList otherwise the query
 				// is empty
 				StackmobQuery stQuery1 = new StackmobQuery();
-				userAccountList = stQuery1.fetchUserAccountByID(accountID
+				userAccountList = stQuery1.fetchUserAccountListByID(accountID
 						.trim());
 
 				for (UserAccount userAcc : userAccountList) {

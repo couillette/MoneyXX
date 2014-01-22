@@ -102,9 +102,9 @@ public class MyWalletActivity extends Activity {
 		case R.id.imageButton_wallet_refresh:
 
 			StackmobQuery stQ = new StackmobQuery();
-			String accountIDD = stQ.fetchUserAccountID(username.trim());
+			String accountIDD = stQ.fetchUserAccountIdByName(username.trim());
 			StackmobQuery stQQ = new StackmobQuery();
-			List<UserAccount> usrList = stQQ.fetchUserAccountByID(accountIDD);
+			List<UserAccount> usrList = stQQ.fetchUserAccountListByID(accountIDD);
 
 			bankRIB_TV.setText("Bank RIB: "
 					+ usrList.get(0).getbankRIB().trim());

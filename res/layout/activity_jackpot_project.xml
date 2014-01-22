@@ -1,0 +1,82 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/green"
+    tools:context=".JackpotProjectActivity" >
+
+    <ImageView
+        android:id="@+id/imageView_JackpotProject_1"
+        android:layout_width="320px"
+        android:layout_height="300px"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginLeft="17dp"
+        android:layout_marginTop="18dp" />
+
+    <Button
+        android:id="@+id/button_JackpotProject_Donate"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentRight="true"
+        android:layout_marginBottom="25dp"
+        android:layout_marginRight="34dp"
+        android:onClick="onClick"
+        android:text="Donate" />
+
+    <EditText
+        android:id="@+id/editText_JackpotProject_AmountOfMoney"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/button_JackpotProject_Donate"
+        android:layout_marginBottom="15dp"
+        android:layout_toLeftOf="@+id/image_money_bill"
+        android:background="@color/green"
+        android:ems="1"
+        android:gravity="center"
+        android:inputType="number"
+        android:text="35"
+        android:textColor="@color/blank"
+        android:textSize="70sp" />
+
+    <ImageView
+        android:id="@+id/image_money_bill"
+        android:layout_width="70sp"
+        android:layout_height="85sp"
+        android:layout_alignRight="@+id/button_JackpotProject_Donate"
+        android:layout_alignTop="@+id/editText_JackpotProject_AmountOfMoney"
+        android:layout_marginRight="37dp"
+        android:src="@drawable/ic_money_bill2" />
+
+    <TextView
+        android:id="@+id/textView_JackpotProject_2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/imageView_JackpotProject_1"
+        android:layout_alignParentRight="true"
+        android:layout_below="@+id/imageView_JackpotProject_1"
+        android:layout_margin="8dip"
+        android:text="TextView" />
+
+    <CheckBox
+        android:id="@+id/checkBox1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBaseline="@+id/button_JackpotProject_Donate"
+        android:layout_alignBottom="@+id/button_JackpotProject_Donate"
+        android:layout_alignLeft="@+id/textView_JackpotProject_2"
+        android:text="Incognito" />
+
+    <TextView
+        android:id="@+id/textView_JackpotProject_1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/textView_JackpotProject_2"
+        android:layout_alignParentRight="true"
+        android:layout_alignTop="@+id/imageView_JackpotProject_1"
+        android:layout_margin="8dip"
+        android:layout_toRightOf="@+id/imageView_JackpotProject_1"
+        android:text="TextView" />
+
+</RelativeLayout>

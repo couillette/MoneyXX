@@ -54,6 +54,7 @@ public class SendBegActivity extends BaseActivity {
 
 	// text return by checkIfUserIsRegistered()
 	String alertDialog_text;
+	AutoCompleteTextView TxtView_AutoComp_TO;
 
 	Boolean userIsRegisterd;
 	String thisUserName;
@@ -112,31 +113,10 @@ public class SendBegActivity extends BaseActivity {
 	// if user click on the buttons
 	public void onClick(View view) {
 		if (loadPrefs()) {
-			final String amount = ((EditText) findViewById(R.id.editText_AmountOfMoney))
-					.getText().toString();
+			final String amount = ((EditText) findViewById(R.id.editText_AmountOfMoney)).getText().toString();
 			userIsRegisterd = false;
 
-			// query on stackmob datastore to check if user are registered or
-			// not
-			// call onItemClickListener because it is asynchronous, which
-			// enhance speed.
-			// put userIsRegisterd to true or false.
-			final StackmobQuery stQuery = new StackmobQuery();
-
-			userIsRegisterd = stQuery.checkByMailOrPhone(contactData[1],
-					contactData[2]);
-
-			if (userIsRegisterd) {
-				alertDialog_text = "\n\nGreat! This person is kown and have a MoneyXX account.";
-
-			} else {
-				alertDialog_text = "\n\nWARNING : this person doesn't have any MoneyXX Account"
-						+ "\nthis action is not allowed yet";
-				// +
-				// "\n- 'OK' and we will credit a temporary account based on the information "
-				// + "you gave and send him a message to register to MoneyXX"
-				// + "\n- 'NO' if you are not sure";
-			}
+			
 
 			switch (view.getId()) {
 
@@ -145,63 +125,69 @@ public class SendBegActivity extends BaseActivity {
 
 				Builder send_message = new AlertDialog.Builder(this);
 				send_message.setTitle("Warning");
-				send_message.setMessage("You are going to send " + amount
-						+ " $ to :\n" + "  " + contactData[0] + "\n  "
-						+ contactData[1] + "\n  " + contactData[2]
-						+ alertDialog_text);
+				
+				// query on stackmob datastore to check if user are registered or not
+				final StackmobQuery stQuery = new StackmobQuery();
+				
+				//condition to allow user entry without autocompletion only from his contacts
+				if(!contactData[0].equals("Name")) {
+					userIsRegisterd = stQuery.checkByMailOrPhone(contactData[1],contactData[2]);
+					
+					if (userIsRegisterd) {
+						alertDialog_text = "\n\nGreat! This person is kown and have a MoneyXX account.";
+					} else {
+						alertDialog_text = "\n\nWARNING : this person doesn't have any MoneyXX Account\n" +
+								"this action is not allowed yet";
+					}
+					
+					send_message.setMessage("You are going to send " + amount 
+							+ " $ to :\n" + "  " + contactData[0] + "\n  "
+							+ contactData[1] + "\n  " + contactData[2] + alertDialog_text);
+				} else {
+					String data = ((AutoCompleteTextView) findViewById(R.id.AutoComp_TO_)).getText().toString();
+					userIsRegisterd = stQuery.checkByMailOrPhone(data,data);
+					
+					if (userIsRegisterd) {
+						alertDialog_text = "\n\nGreat! This person is kown and have a MoneyXX account.";
+					} else {
+						alertDialog_text = "\n\nWARNING : this person doesn't have any MoneyXX Account\n" +
+								"this action is not allowed yet";
+					}
+					
+					//will not check if it is correct email or phone number (cannot check phone...)
+					send_message.setMessage("You are going to send " + amount + " $ to : "+ data + alertDialog_text);
+				}
 
-				send_message.setPositiveButton("OK",
-						new DialogInterface.OnClickListener() {
-							@Override
-							public void onClick(DialogInterface dialog,
-									int which) {
-								if (userIsRegisterd) {
-									// credit receiver account
-									// debit sender account
-									// and check that the transaction succeed
-									if (creditDebit(thisUserName,
-											stQuery.getUsername(), amount)) {
-
-										// send message (mail or sms) to
-										// receiver
-										String[] mailAddressR = { contactData[2]
-												.trim() };
-										String subR = "Earn Money";
-										// add message from sender fill in the
-										// layout
-										String m = ((EditText) findViewById(R.id.editText_message))
-												.getText().toString();
-										String messageR = "you just receive "
-												+ amount
-												+ "$ from "
-												+ thisUserName
-												+ " and your account was credited/n/n"
-												+ m;
-										new SendEmailAsyncTask(mailAddressR,
-												subR, messageR).execute();
-
-										// send message (mail or sms) to sender
-										String[] mailAddressS = { thisUserName
-												.trim() };
-										String subS = "money sent";
-										String messageS = "you sent "
-												+ amount
-												+ "$ to "
-												+ contactData[0].trim()
+				send_message.setPositiveButton("OK",new DialogInterface.OnClickListener() {
+					public void onClick(DialogInterface dialog, int which) {
+						if (userIsRegisterd) {
+							
+							// credit receiver account, debit sender account and check that the transaction succeed
+							if (creditDebit(thisUserName,stQuery.getUsername(), amount)) {
+								
+								// send message (mail or sms) to receiver
+								String[] mailAddressR = { contactData[2].trim() };
+								String subR = "Earn Money";
+								
+								// add message from sender fill in the layout
+								String m = ((EditText) findViewById(R.id.editText_message)).getText().toString();
+								String messageR = "you just receive "+ amount+ "$ from "+ thisUserName
+												+ " and your account was credited/n/n" + m;
+								new SendEmailAsyncTask(mailAddressR,subR, messageR).execute();
+								
+								// send message (mail or sms) to sender
+								String[] mailAddressS = { thisUserName.trim() };
+								String subS = "money sent";
+								String messageS = "you sent "+ amount+ "$ to "+ contactData[0].trim()
 												+ " and your account was debited";
-										new SendEmailAsyncTask(mailAddressS,
-												subS, messageS).execute();
+								new SendEmailAsyncTask(mailAddressS,subS, messageS).execute();
 
-										// confirmation display on MoneyXX
-										Builder confirmation = new AlertDialog.Builder(
-												SendBegActivity.this);
-										confirmation.setTitle("Confirmaation");
-										confirmation
-												.setMessage("Successfull transaction !"
-														+ "/nYou and your contact will be notified by email");
-									}
-
-								}
+								// confirmation display on MoneyXX
+								Builder confirmation = new AlertDialog.Builder(SendBegActivity.this);
+								confirmation.setTitle("Confirmaation");
+								confirmation.setMessage("Successfull transaction !"+ "/nYou and your contact will be notified by email");
+							}
+						}
 								// else if ( !userIsRegisterd ) {
 								//
 								// //create an account!!!
@@ -288,7 +274,7 @@ public class SendBegActivity extends BaseActivity {
 											messageR).execute();
 
 									// send message (mail or sms) to sender
-									String[] mailAddressS = { thisUserName
+									String[] mailAddressS = { thisUserEmail
 											.trim() };
 									String subS = "you beg Money";
 									String messageS = "you beg "
@@ -411,7 +397,7 @@ public class SendBegActivity extends BaseActivity {
 		while (!done) {
 			// credit the receiver account
 			StackmobQuery stQuery2 = new StackmobQuery();
-			String accountIDur = stQuery2.fetchUserAccountID(receiver.trim());
+			String accountIDur = stQuery2.fetchUserAccountIdByName(receiver.trim());
 
 			StackmobQuery stQuery3 = new StackmobQuery();
 			int solde00 = stQuery3.fetchUserAccountSolde(accountIDur);
@@ -430,7 +416,6 @@ public class SendBegActivity extends BaseActivity {
 
 		while (!done) {
 			// debit the sender account
-			StackmobQuery stQuery1 = new StackmobQuery();
 			int solde0 = Integer.parseInt(thisUserAccountSolde.trim());
 			// debit "-"
 			int solde1 = solde0 - Integer.parseInt(amount.trim());
@@ -652,7 +637,7 @@ public class SendBegActivity extends BaseActivity {
 		// Display the result of the query in an autoCompleteTextView allowing
 		// user
 		// to retrieve data by : Name, Phone or Email
-		final AutoCompleteTextView TxtView_AutoComp_TO = (AutoCompleteTextView) findViewById(R.id.AutoComp_TO_);
+		TxtView_AutoComp_TO = (AutoCompleteTextView) findViewById(R.id.AutoComp_TO_);
 		SimpleAdapter contactAdapter = new SimpleAdapter(this, contactList,
 				R.layout.custcontview,
 				new String[] { "Name", "Phone", "Email" }, new int[] {

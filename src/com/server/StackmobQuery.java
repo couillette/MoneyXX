@@ -3,6 +3,8 @@ package com.server;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.entity.Project;
+import com.entity.ProjectAccount;
 import com.entity.UserAccount;
 import com.entity.UserRegistered;
 import com.stackmob.sdk.api.StackMobQuery;
@@ -20,9 +22,15 @@ public class StackmobQuery {
 	int userAccountSolde;
 	String userAccountBankRIB;
 	String userAccountCreditCard;
+	
+	String projectAccountID;
+	int projectAccountSolde;
+	String projecAccountBankRIB;
 
 	List<UserRegistered> USERLIST;
 	List<UserAccount> userAccountList;
+	List<ProjectAccount> projectAccountList;
+	List<Project> projectList;
 
 	public Boolean checkByUsername(String usernameval) {
 		userExist = false;
@@ -62,20 +70,16 @@ public class StackmobQuery {
 		// UserRegistered
 		// into String field. because you have things like "+33" or "("... in
 		// android field numbers
-		String phnum = phoneNumber.replaceAll("[+()-]", "").replace(" ", "")
-				.trim();
+		String phnum = phoneNumber.replaceAll("[+()-]", "").replace(" ", "").trim();
 		String mail = email.trim();
 
-		StackMobQuery checkMail = new StackMobQuery().fieldIsEqualTo("email",
-				mail);
-		StackMobQuery checkPhone = new StackMobQuery().fieldIsEqualTo("phone",
-				phnum);
+		StackMobQuery checkMail = new StackMobQuery().fieldIsEqualTo("email",mail);
+		StackMobQuery checkPhone = new StackMobQuery().fieldIsEqualTo("phone",phnum);
 
 		// while because the query is asynchronous and we need to wait the
 		// result
 		while (!query) {
-			UserRegistered.query(UserRegistered.class, new StackMobQuery()
-					.fieldIsEqualTo("phone", phnum).or(checkMail),
+			UserRegistered.query(UserRegistered.class, new StackMobQuery().fieldIsEqualTo("phone", phnum).or(checkMail),
 					new StackMobQueryCallback<UserRegistered>() {
 
 						@Override
@@ -100,7 +104,7 @@ public class StackmobQuery {
 		return userExist;
 	}
 
-	public String fetchUserAccountID(String usernamev) {
+	public String fetchUserAccountIdByName(String usernamev) {
 		userAccountID = "";
 		query = false;
 
@@ -114,14 +118,37 @@ public class StackmobQuery {
 
 						public void success(List<UserRegistered> userAsolde) {
 							if (!userAsolde.isEmpty()) {
-								userAccountID = userAsolde.get(0)
-										.getUser_account().getID().trim();
+								userAccountID = userAsolde.get(0).getUser_account().getID().trim();
 							}
 							query = true;
 						}
 					});
 		}
 		return userAccountID;
+
+	}
+	
+	public String fetchProjectAccountIdById(String id) {
+		projectAccountID = "";
+		query = false;
+
+		while (!query) {
+			Project.query(Project.class, new StackMobQuery()
+					.fieldIsEqualTo("project_id", id.trim()),
+					new StackMobQueryCallback<Project>() {
+
+						public void failure(StackMobException e) {
+						}
+
+						public void success(List<Project> projectSolde) {
+							if (!projectSolde.isEmpty()) {
+								projectAccountID = projectSolde.get(0).getProject_account().getID().trim();
+							}
+							query = true;
+						}
+					});
+		}
+		return projectAccountID;
 
 	}
 
@@ -131,22 +158,46 @@ public class StackmobQuery {
 
 		while (!query) {
 			UserAccount.query(UserAccount.class, new StackMobQuery()
-					.fieldIsEqualTo("useraccount_id", accountID.trim()),
+					.fieldIsEqualTo("useraccount_id", accountID),
 					new StackMobQueryCallback<UserAccount>() {
 
 						public void failure(StackMobException e) {
 						}
 
 						public void success(List<UserAccount> userAcc) {
-							userAccountSolde = Integer.parseInt(userAcc.get(0)
-									.getSolde().trim());
+							userAccountSolde = Integer.parseInt(userAcc.get(0).getSolde());
+							query = true;
 						}
 					});
 		}
 		return userAccountSolde;
 	}
+	
+	public int fetchProjectAccountSolde(String paccountID) {
+		projectAccountSolde = 0;
+		query = false;
 
-	public List<UserAccount> fetchUserAccountByID(String accountID) {
+		while (!query) {
+			ProjectAccount.query(ProjectAccount.class, new StackMobQuery().fieldIsEqualTo("projectaccount_id", paccountID.trim()),
+					new StackMobQueryCallback<ProjectAccount>() {
+
+						public void failure(StackMobException e) {
+						}
+
+						public void success(List<ProjectAccount> projectAccount) {
+							if (!projectAccount.isEmpty()) {
+							projectAccountSolde = Integer.parseInt(projectAccount.get(0).getSolde());
+							}
+							query = true;
+						}
+					});
+		}
+		return projectAccountSolde;
+	}
+	
+	
+
+	public List<UserAccount> fetchUserAccountListByID(String accountID) {
 		query = false;
 
 		while (!query) {
@@ -166,6 +217,52 @@ public class StackmobQuery {
 		}
 		return userAccountList;
 	}
+	
+	
+	public List<ProjectAccount> fetchProjectAccountListByID(String paccountID) {
+		query = false;
+
+		while (!query) {
+			ProjectAccount.query(ProjectAccount.class, new StackMobQuery()
+					.fieldIsEqualTo("projectaccount_id", paccountID.trim()),
+					new StackMobQueryCallback<ProjectAccount>() {
+						@Override
+						public void success(List<ProjectAccount> projectaccounts) {
+							projectAccountList = projectaccounts;
+							query = true;
+						}
+
+						@Override
+						public void failure(StackMobException e) {
+						}
+					});
+		}
+		return projectAccountList;
+	}
+	
+	
+	
+	public List<Project> fetchProjectListByID(String pID) {
+		query = false;
+
+		while (!query) {
+			Project.query(Project.class, new StackMobQuery().fieldIsEqualTo("project_id", pID.trim()),
+					new StackMobQueryCallback<Project>() {
+						@Override
+						public void success(List<Project> projects) {
+							projectList = projects;
+							query = true;
+						}
+
+						@Override
+						public void failure(StackMobException e) {
+						}
+					});
+		}
+		return projectList;
+	}
+	
+	
 
 	public void fetchAllUserRegistered() {
 		query = false;
@@ -189,8 +286,7 @@ public class StackmobQuery {
 	}
 
 
-	public List<UserAccount> fetchSoldeByBankRIBandCreditCard(
-			String bankrib_solde, String creditcard_solde) {
+	public List<UserAccount> fetchSoldeByBankRIBandCreditCard(String bankrib_solde, String creditcard_solde) {
 		query = false;
 		// userAccountList.clear();
 
