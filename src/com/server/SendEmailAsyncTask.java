@@ -11,12 +11,12 @@ public class SendEmailAsyncTask extends AsyncTask<Void, Void, Boolean> {
 	Mail m;
 
 	public SendEmailAsyncTask(String[] emailList, String sub, String message) {
-		// this.m = new Mail("moneyxx2013@gmail.com", "moneyxxisep");
-		//
-		// m.set_to(emailList);
-		// m.set_from("money2013@gmail.com");
-		// m.set_subject("[MoneyXX] - "+sub);
-		// m.setBody(message);
+		 this.m = new Mail("moneyxx2013@gmail.com", "moneyxxisep");
+		
+		 m.set_to(emailList);
+		 m.set_from("money2013@gmail.com");
+		 m.set_subject("[MoneyXX] - "+sub);
+		 m.setBody(message);
 	}
 
 	@Override

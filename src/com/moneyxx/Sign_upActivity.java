@@ -86,14 +86,15 @@ public class Sign_upActivity extends BaseActivity {
 						
 						if(pwd.equals("AZERTY")){
 							
-							final StackmobQuery stQuery = new StackmobQuery();
-							usrRec = stQuery.checkByMailOrPhoneUnRegisteredUser(phone, email);
+							final StackmobQuery stQuery1 = new StackmobQuery();
+							usrRec = stQuery1.checkByMailOrPhoneUnRegisteredUser(phone, email);
 							userIsRegisterd = !(usrRec.isEmpty());
 							
 							if (userIsRegisterd) {
 								Builder send_message = new AlertDialog.Builder(this);
 								send_message.setTitle("MoneyXX");
 								send_message.setMessage("Great an account was temporary stored for you!");
+								send_message.show();
 								
 							} 
 							

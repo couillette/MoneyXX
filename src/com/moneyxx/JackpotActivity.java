@@ -82,7 +82,7 @@ public class JackpotActivity extends Activity {
 //			p2account.save();
 //			Project p2 = new Project("Tant va la cruche à l'eau qu'à la fin ...", "project2@gmail.com");
 //			p2.setID("2");
-//			p2.setProject_account(paccount);
+//			p2.setProject_account(p2account);
 //			p2.save();
 //			
 //			
@@ -90,7 +90,7 @@ public class JackpotActivity extends Activity {
 //			p3account.save();
 //			Project p3 = new Project("Les élites françaises ont honte de la France", "project3@gmail.com");
 //			p3.setID("3");
-//			p3.setProject_account(paccount);
+//			p3.setProject_account(p3account);
 //			p3.save();
 //			
 //			
@@ -98,7 +98,7 @@ public class JackpotActivity extends Activity {
 //			p4account.save();
 //			Project p4 = new Project("A ciel ouvert : La folie à l'âge tendre", "project4@gmail.com");
 //			p4.setID("4");
-//			p3.setProject_account(paccount);
+//			p4.setProject_account(p4account);
 //			p4.save();
 			
 			

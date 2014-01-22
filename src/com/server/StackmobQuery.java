@@ -117,6 +117,7 @@ public class StackmobQuery {
 	
 	public List<UserRegistered> checkByMailOrPhoneUnRegisteredUser(String phoneNumber, String email) {
 		query = false;
+		list_UserUnRec = new ArrayList<UserUnRegistered>();
 
 		// to make query on phoneNumber we had to change phone attribute in
 		// UserRegistered
